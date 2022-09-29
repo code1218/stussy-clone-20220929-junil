@@ -44,6 +44,36 @@ header {
     padding: 0px 10px;
 }
 
+.site-nav-menu {
+    display: flex;
+    align-items: center;
+
+    height: 60px;
+}
+
+.header-right-container {
+    display: flex;
+    align-items: center;
+}
+
+.site-header-button {
+    margin: 0px 0px 0px 10px;
+    border: none;
+    padding: 0px;
+    width: auto;
+    height: 11px;
+
+    font-weight: 400;
+}
+
+.site-header-button:hover {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.korea-img {
+    height: 150%;
+}
+
 nav {
     position: absolute;
     z-index: 9;
@@ -56,4 +86,23 @@ nav {
 
     background-color: white;
 
+}
+
+.site-nav-mega {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    margin: 0px 20px;
+    padding-left: 80px;
+    padding-bottom: 30px;
+}
+
+.site-nav-child-link {
+    margin-bottom: 10px;
+    width: 85px;
+}
+
+.nav-invisible {
+    display: none;
 }

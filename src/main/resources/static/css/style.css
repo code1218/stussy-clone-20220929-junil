@@ -5,11 +5,11 @@
 
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 11px;
+    letter-spacing: 1px;
 }
 
 body, html {
     margin: 0px;
-    height: 100%;
 }
 
 input {
@@ -25,6 +25,39 @@ input:focus {
     border: 1px solid black;
 }
 
+@keyframes button-fadein {
+    from {
+        background-color: white;
+    }
+    to {
+        background-color: black;
+    }
+}
+@keyframes button-fadeout {
+    from {
+        background-color: black;
+    }
+    to {
+        background-color: white;
+    }
+}
+@keyframes black-button-fadein {
+    from {
+        background-color: black;
+    }
+    to {
+        background-color: rgb(100, 100, 100);
+    }
+}
+@keyframes black-button-fadeout {
+    from {
+        background-color: rgb(100, 100, 100);
+    }
+    to {
+        background-color: black;
+    }
+}
+
 button {
     margin-bottom: 10px;
     border: 1px solid black;
@@ -34,8 +67,23 @@ button {
     font-weight: 700;
     color: black;
     background-color: white;
+    animation: button-fadeout 0.1s linear forwards;
 
     cursor: pointer;
+}
+
+button:active {
+    animation: button-fadein 0.1s linear forwards;
+}
+
+.black-button {
+    color: white;
+    background-color: black;
+    animation: black-button-fadeout 0.1s linear forwards;
+}
+
+.black-button:active {
+    animation: black-button-fadein 0.1s linear forwards;
 }
 
 a {
@@ -47,3 +95,4 @@ a:hover {
     font-weight: 700;
     text-decoration: underline;
 }
+

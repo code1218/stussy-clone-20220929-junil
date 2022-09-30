@@ -1,0 +1,81 @@
+main {
+    margin-top: 60px;
+}
+
+.login-title {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+
+    margin: 0px auto;
+}
+
+section {
+    padding: 0px 20px;
+    width: 512px;
+}
+
+.login-subheader {
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgb(198, 198, 198);
+    padding-bottom: 20px;
+
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.login-content {
+    margin: 20px 0px;
+}
+
+.login-button {
+    margin-bottom: 15px;
+    padding: 10px 0px;
+
+    width: 100%;
+}
+
+.login-show-recover {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+    width: 100%;
+
+    color: rgb(127, 127, 127);
+}
+
+.login-show-recover:hover {
+    font-weight: 400;
+    text-decoration: none;
+}
+
+.login-name {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.login-half:nth-child(1) {
+    width: 50%;
+    padding-right: 5px;
+}
+
+.login-half:nth-child(2) {
+    width: 50%;
+    padding-left: 5px;
+}
+
+.login-return {
+    display: flex;
+    justify-content: center;
+
+    color: rgb(127, 127, 127);
+}
+
+.login-return:hover {
+    font-weight: 400;
+    text-decoration: none;
+}

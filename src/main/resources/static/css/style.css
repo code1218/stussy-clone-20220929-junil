@@ -31,11 +31,13 @@ input:focus {
     }
     to {
         background-color: black;
+        text-decoration: underline;
     }
 }
 @keyframes button-fadeout {
     from {
         background-color: black;
+        text-decoration: underline;
     }
     to {
         background-color: white;
@@ -47,11 +49,13 @@ input:focus {
     }
     to {
         background-color: rgb(100, 100, 100);
+        text-decoration: underline;
     }
 }
 @keyframes black-button-fadeout {
     from {
         background-color: rgb(100, 100, 100);
+        text-decoration: underline;
     }
     to {
         background-color: black;

@@ -66,7 +66,12 @@ header {
     width: auto;
     height: 11px;
 
+    animation: none;
+    
     font-weight: 400;
+}
+.site-header-button:active{
+    animation: none;
 }
 
 .site-header-button:hover {

@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="/static/css/header.css">
     <link rel="stylesheet" href="/static/css/account.css">
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
     <div id="container">
@@ -62,21 +63,19 @@
                 <h1 class="login-title">ACCOUNT</h1>
                 <div class="login-container">
                     <section class="login-current">
-                        <form action="" method="post">
-                            <h2 class="login-subheader">신규 회원가입</h2>
-                            <div class="login-name">
-                                <div class="login-half">
-                                    <input type="text" class="login-input" placeholder="이름" required>
-                                </div>
-                                <div class="login-half">
-                                    <input type="text" class="login-input" placeholder="성" required>
-                                </div>
+                        <h2 class="login-subheader">신규 회원가입</h2>
+                        <div class="login-name">
+                            <div class="login-half">
+                                <input type="text" class="login-input" placeholder="이름">
                             </div>
-                            <input type="email" class="login-input" name="username" placeholder="이메일" required>
-                            <input type="password" class="login-input" name="password" placeholder="비밀번호" required>
-                            <button type="button" class="black-button login-button">확인</button>
-                            <a href="" class="login-return">로그인으로 돌아가기</a>
-                        </form>
+                            <div class="login-half">
+                                <input type="text" class="login-input" placeholder="성">
+                            </div>
+                        </div>
+                        <input type="email" class="login-input" placeholder="이메일">
+                        <input type="password" class="login-input" placeholder="비밀번호">
+                        <button type="button" class="black-button login-button">확인</button>
+                        <a href="/account/login" class="login-return">로그인으로 돌아가기</a>
                     </section>
                 </div>
             </div>
@@ -84,5 +83,6 @@
         <footer>
         </footer>
     </div>
+    <script src="/static/js/register.js"></script>
 </body>
 </html>

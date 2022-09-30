@@ -12,6 +12,19 @@ body, html {
     height: 100%;
 }
 
+input {
+    margin-bottom: 15px;
+    border: 1px solid rgb(198, 198, 198);
+    padding: 10px;
+
+    width: 100%;
+}
+
+input:focus {
+    outline: none;
+    border: 1px solid black;
+}
+
 button {
     margin-bottom: 10px;
     border: 1px solid black;

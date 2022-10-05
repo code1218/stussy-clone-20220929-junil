@@ -1,5 +1,7 @@
 package com.stussy.stussyclone20220929junil.controller.api;
 
+import com.stussy.stussyclone20220929junil.aop.annotation.LogAspect;
+import com.stussy.stussyclone20220929junil.aop.annotation.ValidAspect;
 import com.stussy.stussyclone20220929junil.dto.CMRespDto;
 import com.stussy.stussyclone20220929junil.dto.account.RegisterReqDto;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +22,8 @@ import java.util.Map;
 @RestController
 public class AccountApi {
 
+    @LogAspect
+    @ValidAspect
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody RegisterReqDto registerReqDto, BindingResult bindingResult) {
 

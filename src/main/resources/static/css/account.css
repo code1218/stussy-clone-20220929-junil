@@ -79,3 +79,13 @@ section {
     font-weight: 400;
     text-decoration: none;
 }
+
+.account-errors {
+    margin-bottom: 15px;
+    text-align: center;
+    color: #e74c3c;
+}
+
+.errors-invisible {
+    display: none;
+}

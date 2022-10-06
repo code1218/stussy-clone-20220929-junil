@@ -19,4 +19,8 @@
             now()
         )
     </insert>
+
+    <select id="findUserByEmail">
+
+    </select>
 </mapper>

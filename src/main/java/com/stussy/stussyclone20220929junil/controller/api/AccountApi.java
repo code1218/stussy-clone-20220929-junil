@@ -5,6 +5,8 @@ import com.stussy.stussyclone20220929junil.aop.annotation.ValidAspect;
 import com.stussy.stussyclone20220929junil.dto.CMRespDto;
 import com.stussy.stussyclone20220929junil.dto.account.RegisterReqDto;
 import com.stussy.stussyclone20220929junil.dto.validation.ValidationSequence;
+import com.stussy.stussyclone20220929junil.service.AccountService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,14 +25,19 @@ import java.util.Map;
 @Slf4j
 @RequestMapping("/api/account")
 @RestController
+@RequiredArgsConstructor
 public class AccountApi {
+
+    private final AccountService accountService;
 
     @LogAspect
     @ValidAspect
     @PostMapping("/register")
     public ResponseEntity<?> register(@Validated(ValidationSequence.class) @RequestBody RegisterReqDto registerReqDto, BindingResult bindingResult) {
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(null);
+        accountService.checkDuplicateEmail(registerReqDto.getEmail());
+
+        return ResponseEntity.ok().body(null);
     }
 
 }

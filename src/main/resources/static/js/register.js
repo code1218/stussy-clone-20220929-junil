@@ -18,10 +18,10 @@ registerButton.onclick = () => {
         data: JSON.stringify(registerInfo),
         dataType: "json",
         success: (response) => {
-
+            console.log(response);
         },
         error: (error) => {
-
+            console.log(error);
         }
     });
 }

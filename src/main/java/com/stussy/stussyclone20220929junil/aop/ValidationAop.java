@@ -1,10 +1,13 @@
 package com.stussy.stussyclone20220929junil.aop;
 
 import com.stussy.stussyclone20220929junil.dto.CMRespDto;
+import com.stussy.stussyclone20220929junil.exception.CustomValidationException;
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -25,8 +28,8 @@ public class ValidationAop {
     @Pointcut("@annotation(com.stussy.stussyclone20220929junil.aop.annotation.ValidAspect)")
     private void pointCut() {}
 
-    @Around("pointCut()")
-    public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
+    @Before("pointCut()")
+    public void before(JoinPoint joinPoint) throws Throwable {
         Object[] args = joinPoint.getArgs();
 
         BeanPropertyBindingResult bindingResult = null;
@@ -38,10 +41,6 @@ public class ValidationAop {
             }
         }
 
-        if(bindingResult == null){
-            return joinPoint.proceed();
-        }
-
         if(bindingResult.hasErrors()){
             Map<String, String> errorMap = new HashMap<String, String>();
 
@@ -49,10 +48,8 @@ public class ValidationAop {
                 errorMap.put(error.getField(), error.getDefaultMessage());
             });
 
-            return ResponseEntity.badRequest().body(new CMRespDto<>(-1, "유효성 검사 실패", errorMap));
+            throw new CustomValidationException("Validation failed", errorMap);
         }
-
-        return joinPoint.proceed();
     }
 
 }

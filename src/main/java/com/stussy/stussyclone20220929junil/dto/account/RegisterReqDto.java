@@ -1,7 +1,9 @@
 package com.stussy.stussyclone20220929junil.dto.account;
 
+import com.stussy.stussyclone20220929junil.domain.User;
 import com.stussy.stussyclone20220929junil.dto.validation.ValidationGroups;
 import lombok.Data;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -37,4 +39,14 @@ public class RegisterReqDto {
             groups = ValidationGroups.PatternCheckGroup.class
     )
     private String password;
+
+    public User toUserEntity() {
+        return User.builder()
+                .username(email)
+                .password(new BCryptPasswordEncoder().encode(password))
+                .name(firstName + lastName)
+                .email(email)
+                .role_id(1)
+                .build();
+    }
 }

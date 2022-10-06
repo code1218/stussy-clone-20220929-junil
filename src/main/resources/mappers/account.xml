@@ -3,6 +3,26 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.stussy.stussyclone20220929junil.repository.AccountRepository">
+
+    <resultMap id="role" type="com.stussy.stussyclone20220929junil.domain.Role">
+        <result property="id" column="id"></result>
+        <result property="role" column="role"></result>
+        <result property="role_name" column="role_name"></result>
+    </resultMap>
+    <resultMap id="user" type="com.stussy.stussyclone20220929junil.domain.User">
+        <result property="id" column="id"></result>
+        <result property="username" column="username"></result>
+        <result property="oauth_username" column="oauth_username"></result>
+        <result property="password" column="password"></result>
+        <result property="name" column="name"></result>
+        <result property="email" column="email"></result>
+        <result property="provider" column="provider"></result>
+        <result property="role_id" column="role_id"></result>
+        <result property="create_date" column="create_date"></result>
+        <result property="update_date" column="update_date"></result>
+        <collection property="role" resultMap="role"></collection>
+    </resultMap>
+
     <insert id="save" parameterType="com.stussy.stussyclone20220929junil.domain.User">
         insert into
             user_mst
@@ -14,13 +34,32 @@
             #{name},
             #{email},
             #{provider},
-            1,
+            #{role_id},
             now(),
             now()
         )
     </insert>
 
-    <select id="findUserByEmail">
+    <select id="findUserByEmail" parameterType="String" resultMap="user">
+        select
+            um.id,
+            um.username,
+            um.oauth_username,
+            um.password,
+            um.name,
+            um.email,
+            um.provider,
+            um.role_id,
 
+            rm.role,
+            rm.role_name,
+
+            um.create_date,
+            um.update_date
+        from
+            user_mst um
+            left outer join role_mst rm on (rm.id = um.role_id)
+        where
+            email = #{email}
     </select>
 </mapper>

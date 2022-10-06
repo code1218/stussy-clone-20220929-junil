@@ -33,11 +33,12 @@ public class AccountApi {
     @LogAspect
     @ValidAspect
     @PostMapping("/register")
-    public ResponseEntity<?> register(@Validated(ValidationSequence.class) @RequestBody RegisterReqDto registerReqDto, BindingResult bindingResult) {
+    public ResponseEntity<?> register(@Validated(ValidationSequence.class) @RequestBody RegisterReqDto registerReqDto, BindingResult bindingResult) throws Exception {
 
         accountService.checkDuplicateEmail(registerReqDto.getEmail());
+        accountService.register(registerReqDto);
 
-        return ResponseEntity.ok().body(null);
+        return ResponseEntity.ok().body(new CMRespDto<>(1, "Successfully registered", registerReqDto));
     }
 
 }

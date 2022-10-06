@@ -1,6 +1,7 @@
 package com.stussy.stussyclone20220929junil.service;
 
 import com.stussy.stussyclone20220929junil.domain.User;
+import com.stussy.stussyclone20220929junil.dto.account.RegisterReqDto;
 import com.stussy.stussyclone20220929junil.exception.CustomValidationException;
 import com.stussy.stussyclone20220929junil.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
@@ -28,4 +29,11 @@ public class AccountServiceImpl implements AccountService{
         return true;
     }
 
+    @Override
+    public boolean register(RegisterReqDto registerReqDto) throws Exception {
+        User userEntity = registerReqDto.toUserEntity();
+        int result = accountRepository.save(userEntity);
+
+        return result != 0;
+    }
 }

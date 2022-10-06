@@ -18,7 +18,7 @@ registerButton.onclick = () => {
         data: JSON.stringify(registerInfo),
         dataType: "json",
         success: (response) => {
-            console.log(response);
+            location.replace("/account/login"); 
         },
         error: (error) => {
             console.log(error);

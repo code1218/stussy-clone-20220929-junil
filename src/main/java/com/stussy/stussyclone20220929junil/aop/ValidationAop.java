@@ -5,10 +5,7 @@ import com.stussy.stussyclone20220929junil.exception.CustomValidationException;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BeanPropertyBindingResult;
@@ -50,6 +47,11 @@ public class ValidationAop {
 
             throw new CustomValidationException("Validation failed", errorMap);
         }
+    }
+
+    @AfterReturning(value = "pointCut()", returning = "returnObj")
+    public void afterReturn(JoinPoint joinPoint, Object returnObj) {
+        log.info("Validation success: {}", returnObj);
     }
 
 }

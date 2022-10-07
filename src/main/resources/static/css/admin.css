@@ -1,0 +1,35 @@
+.admin-title {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.admin-container {
+    display: flex;
+    justify-content: center;
+
+    margin: 0px auto;
+}
+
+section {
+    padding: 0px 20px;
+    width: 956px;
+}
+
+.product-option {
+    display: flex;
+    align-items: center;
+}
+
+.option-half:nth-child(1) {
+    width: 50%;
+    padding-right: 5px;
+}
+
+.option-half:nth-child(2) {
+    width: 50%;
+    padding-left: 5px;
+}
+
+.product-button {
+    width: 100%;
+}

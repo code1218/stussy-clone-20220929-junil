@@ -1,0 +1,13 @@
+.admin-menus {
+    width: 264px;
+    height: 600px;
+
+    margin-bottom: 20px;
+    padding: 0px 10px;
+}
+
+.admin-menus li {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #7f7f7f;
+    padding-bottom: 10px;
+}

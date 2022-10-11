@@ -78,6 +78,7 @@ button {
 
 button:active {
     animation: button-fadein 0.1s linear forwards;
+    color: white;
 }
 
 .black-button {

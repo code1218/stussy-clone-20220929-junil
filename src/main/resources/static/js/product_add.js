@@ -4,7 +4,6 @@ const submitButton = document.querySelector(".submit-button");
 
 let productImageFiles = new Array();
 
-
 fileAddButton.onclick = () => {
     fileInput.click();
 }
@@ -27,7 +26,8 @@ function getImagePreview() {
 
     productImages.innerHTML = "";
 
-    productImageFiles.forEach(file => {
+
+    productImageFiles.forEach((file, i) => {
         const reader = new FileReader();
     
         reader.onload = (e) => {
@@ -48,9 +48,10 @@ function getImagePreview() {
                     }
                 };
             })
-
         }
 
-        reader.readAsDataURL(file);
+        setTimeout(reader.readAsDataURL(file), i * 100);
+        
+        
     });
 }

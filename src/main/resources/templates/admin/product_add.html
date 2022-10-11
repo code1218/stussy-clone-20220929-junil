@@ -72,26 +72,51 @@
                         </ul>
                     </aside>
                     <section class="admin-main">
-                        <input type="text" class="product-input" placeholder="상품명을 입력하세요">
-                        <input type="text" class="product-input" placeholder="가격을 입력하세요">
-                        <div class="product-option">
-                            <div class="option-half">
-                                <select class="product-input">
-                                    <option value="1">색상 선택</option>
-                                </select>
+                        <form enctype="multipart/form-data">
+                            <input type="text" class="product-input" placeholder="상품명을 입력하세요">
+                            <input type="text" class="product-input" placeholder="가격을 입력하세요">
+                            <div class="product-option">
+                                <div class="option-half">
+                                    <select class="product-input">
+                                        <option value="1">색상 선택</option>
+                                    </select>
+                                </div>
+                                <div class="option-half">
+                                    <select class="product-input">
+                                        <option value="1">사이즈 선택</option>
+                                    </select>
+                                </div>
                             </div>
-                            <div class="option-half">
-                                <select class="product-input">
-                                    <option value="1">사이즈 선택</option>
-                                </select>
+                            <textarea class="product-input" placeholder="간략 설명"></textarea>
+                            <textarea class="product-input" placeholder="상세 설명"></textarea>
+                            <textarea class="product-input" placeholder="기타 설명"></textarea>
+                            <textarea class="product-input" placeholder="관리 방법"></textarea>
+                            <textarea class="product-input" placeholder="배송 설명"></textarea>
+                            <div>
+                                <label>상품 이미지</label>
+                                <button type="button">추가</button>
+                                <div class="product-images">
+                                    <div class="img-box">
+                                        <i class="fa-solid fa-xmark"></i>
+                                        <img class="product-img" src="/static/images/product1.png">
+                                    </div>
+                                    <div class="img-box">
+                                        <i class="fa-solid fa-xmark"></i>
+                                        <img class="product-img" src="/static/images/product2.png">
+                                    </div>
+                                    <div class="img-box">
+                                        <i class="fa-solid fa-xmark"></i>
+                                        <img class="product-img" src="/static/images/product3.png">
+                                    </div>
+                                    <div class="img-box">
+                                        <i class="fa-solid fa-xmark"></i>
+                                        <img class="product-img" src="/static/images/product4.png">
+                                    </div>
+                                </div>
+
                             </div>
-                        </div>
-                        <textarea class="product-input" placeholder="간략 설명"></textarea>
-                        <textarea class="product-input" placeholder="상세 설명"></textarea>
-                        <textarea class="product-input" placeholder="기타 설명"></textarea>
-                        <textarea class="product-input" placeholder="관리 방법"></textarea>
-                        <textarea class="product-input" placeholder="배송 설명"></textarea>
-                        <button type="button" class="product-button black-button">등록하기</button>
+                            <button type="button" class="product-button black-button">등록하기</button>
+                        </form>
                     </section>
                 </div>
             </div>

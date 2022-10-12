@@ -43,7 +43,7 @@
                             MAX(group_id)
                         FROM
                             product_mst
-                        WHERE NAME = 'b'), ifnull(MAX(group_id), 0) + 1),
+                        WHERE NAME = #{name}), ifnull(MAX(group_id), 0) + 1),
                 #{name},
                 #{price},
                 #{color},
@@ -67,9 +67,9 @@
         <foreach item="file" collection="list" separator=",">
             (
                 0,
-                #{product_id},
-                #{origin_name},
-                #{temp_name},
+                #{file.product_id},
+                #{file.origin_name},
+                #{file.temp_name},
                 now(),
                 now()
             )

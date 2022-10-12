@@ -19,3 +19,6 @@ spring:
 mybatis:
   mapper-locations:
     - /mappers/*.xml
+
+file:
+  path: C:/junil/junil/web/springboot/stussy-clone-20220929-junil/upload/

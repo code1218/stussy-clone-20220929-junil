@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stussy.stussyclone20220929junil.repository.admin.ProductRepository">
+
+    <resultMap id="product_img_files" type="com.stussy.stussyclone20220929junil.domain.ProductImgFile">
+        <result property="id" column="id"></result>
+        <result property="product_id" column="product_id"></result>
+        <result property="origin_name" column="origin_name"></result>
+        <result property="temp_name" column="temp_name"></result>
+    </resultMap>
+    <resultMap id="product" type="com.stussy.stussyclone20220929junil.domain.Product">
+        <result property="id" column="id"></result>
+        <result property="category" column="category"></result>
+        <result property="group_id" column="group_id"></result>
+        <result property="name" column="name"></result>
+        <result property="price" column="price"></result>
+        <result property="color" column="color"></result>
+        <result property="size" column="size"></result>
+        <result property="info_simple" column="info_simple"></result>
+        <result property="info_detail" column="info_detail"></result>
+        <result property="info_option" column="info_option"></result>
+        <result property="info_management" column="info_menagement"></result>
+        <result property="info_shipping" column="info_shipping"></result>
+        <result property="create_date" column="create_date"></result>
+        <result property="update_date" column="update_date"></result>
+        <collection property="product_img_files" javaType="list" resultMap="product_img_files"></collection>
+    </resultMap>
+
+    <insert
+            id="saveProduct"
+            parameterType="com.stussy.stussyclone20220929junil.domain.Product"
+            useGeneratedKeys="true"
+            keyProperty="id"
+    >
+        INSERT INTO
+            product_mst
+            (select
+                0,
+                #{category},
+                IFNULL((SELECT
+                            MAX(group_id)
+                        FROM
+                            product_mst
+                        WHERE NAME = 'b'), ifnull(MAX(group_id), 0) + 1),
+                #{name},
+                #{price},
+                #{color},
+                #{size},
+                #{info_simple},
+                #{info_detail},
+                #{info_option},
+                #{info_management},
+                #{info_shipping},
+                now(),
+                now()
+            FROM
+                product_mst
+        );
+    </insert>
+
+    <insert id="saveImgFiles" parameterType="java.util.List">
+        insert into
+            product_img
+        values
+        <foreach item="file" collection="list" separator=",">
+            (
+                0,
+                #{product_id},
+                #{origin_name},
+                #{temp_name},
+                now(),
+                now()
+            )
+        </foreach>
+
+    </insert>
+    
+    
+</mapper>

@@ -103,3 +103,54 @@ textarea {
 
     cursor: pointer;
 }
+
+/*<<<<<<<<<<<<<<<<< LIST >>>>>>>>>>>>>>>*/
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+
+.product-info {
+    border: none;
+}
+
+th:nth-child(1) {
+    width: 70px;
+}
+th:nth-child(2) {
+    width: 120px;
+}
+th:nth-child(4) {
+    width: 100px;
+}
+th:nth-child(5) {
+    width: 100px;
+}
+th:nth-child(6) {
+    width: 70px;
+}
+th:nth-child(7) {
+    width: 70px;
+}
+th:nth-child(8) {
+    width: 70px;
+}
+
+.product-list th, .product-list td {
+    padding: 0px 5px;
+    height: 25px;
+}
+
+th, td {
+    border: 1px solid black;
+}
+
+.product-info td {
+    border: none;
+} 
+
+.detail-invisible {
+    display: none;
+}

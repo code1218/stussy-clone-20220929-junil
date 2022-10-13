@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/header.css">
+    <link rel="stylesheet" href="/static/css/aside.css">
+    <link rel="stylesheet" href="/static/css/admin.css">
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+    <div id="container">
+        <header>
+            <div class="header-container">
+                <div class="header-flex">
+                    <div class="header-left-container">
+                        <div class="logo-container">
+                            <img class="site-logo" src="/static/images/logo/site_logo.PNG" alt="site_logo">
+                        </div>
+                        <div class="menu-container">
+                            <div class="site-nav-menu">
+                                <a href="/collections/all" class="site-nav-parent">SHOP</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="header-right-container">
+                        <button class="site-header-button">SEARCH</button>
+                        <button class="site-header-button">BAG(<span class="bac-count">1</span>)</button>
+                        <button class="site-header-button"><img class="korea-img" src="/static/images/logo/korea_img.PNG" alt="korea"></button>
+                    </div>
+                </div>
+            </div>
+            <nav class="nav-invisible">
+                <div class="site-nav-mega">
+                    <a href="/collections/new-arrivals" class="site-nav-child-link">NEW</a>
+                    <a href="/collections/denim" class="site-nav-child-link">DENIM</a>
+                    <a href="/collections/tees" class="site-nav-child-link">TEES</a>
+                    <a href="/collections/sweats" class="site-nav-child-link">SWEATS</a>
+                    <a href="/collections/overdyed" class="site-nav-child-link">OVERDYED</a>
+                    <a href="/collections/pants" class="site-nav-child-link">PANTS</a>
+                    <a href="/collections/shorts" class="site-nav-child-link">SHORTS</a>
+                    <a href="/collections/outerwear" class="site-nav-child-link">OUTERWEAR</a>
+                    <a href="/collections/knits" class="site-nav-child-link">KNITS</a>
+                    <a href="/collections/tops-shirts" class="site-nav-child-link">TOPS & SHIRTS</a>
+                    <a href="/collections/headwear" class="site-nav-child-link">HEADWEAR</a>
+                    <a href="/collections/accessories" class="site-nav-child-link">ACCESSORIES</a>
+                    <a href="/collections/all" class="site-nav-child-link">ALL</a>
+                </div>
+                <div class="site-nav-mega">
+                    <a href="/account/login" class="site-nav-child-link">ACCOUNT</a>
+                    <a href="/pages/customer-support" class="site-nav-child-link">CONTACT</a>
+                    <a href="/blogs/features" class="site-nav-child-link">FEATURES</a>
+                    <a href="/blogs/chapters" class="site-nav-child-link">CHAPTERS</a>
+                </div>
+            </nav>
+            <script src="/static/js/header.js"></script>
+        </header>
+        <main>
+            <div class="admin">
+                <h1 class="admin-title">ADMIN PRODUCT LIST</h1>
+                <div class="admin-container">
+                    <aside class="admin-menus">
+                        <ul>
+                            <li><a href="/admin/product/list">상품 조회</a></li>
+                            <li><a href="/admin/product/addition">상품 등록</a></li>
+                            <li><a href="/admin/product/modification">상품 수정</a></li>
+                            <li><a href="/logout">로그아웃</a></li>
+                        </ul>
+                    </aside>
+                    <section class="admin-main">
+                        <div class="list-header">
+                            <div class="category-select">
+                                <select class="product-input">
+                                    <option value="ALL" selected>전체 상품</option>
+                                    <option value="TEES">TEES</option>
+                                    <option value="SWEATS">SWEATS</option>
+                                    <option value="OVERDYED">OVERDYED</option>
+                                    <option value="TOPS_SHIRTS">TOPS & SHIRTS</option>
+                                    <option value="KNITS">KNITS</option>
+                                    <option value="BOTTOMS">BOTTOMS</option>
+                                    <option value="DENIM">DENIM</option>
+                                    <option value="HEADWEAR">HEADWEAR</option>
+                                    <option value="ACCESSORIES">ACCESSORIES</option>
+                                </select>
+                            </div>
+                            <div class="product-search">
+                                <input type="text" class="product-input">
+                                <button type="button" class="search-button black-button">검색</button>
+                            </div>
+                        </div>
+                        <table class="product-list">
+                            <thead>
+                                <tr>
+                                    <th>상품번호</th>
+                                    <th>상품종류</th>
+                                    <th>상품명</th>
+                                    <th>가격</th>
+                                    <th>색상</th>
+                                    <th>사이즈</th>
+                                    <th>상세</th>
+                                    <th>삭제</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>TEES</td>
+                                    <td>상품명</td>
+                                    <td>가격</td>
+                                    <td>색상</td>
+                                    <td>사이즈</td>
+                                    <td>상세</td>
+                                    <td>삭제</td>
+                                </tr>
+                                <tr class="product-detail">
+                                    <td colspan="9">
+                                        <table class="product-info">
+                                            <tr>
+                                                <td><input type="text" class="product-input" placeholder="가격"></td>
+                                                <td><input type="text" class="product-input" placeholder="색상"></td>
+                                                <td><input type="text" class="product-input" placeholder="사이즈"></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3">
+                                                    <textarea class="product-input" placeholder="간략 설명"></textarea>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3">
+                                                    <textarea class="product-input" placeholder="상세 설명"></textarea>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3">
+                                                    <textarea class="product-input" placeholder="기타 설명"></textarea>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3">
+                                                    <textarea class="product-input" placeholder="관리 방법"></textarea>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3">
+                                                    <textarea class="product-input" placeholder="배송 설명"></textarea>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                </div>
+            </div>
+        </main>
+        <footer>
+        </footer>
+    </div>
+    <script src="/static/js/product_list.js"></script>
+</body>
+</html>

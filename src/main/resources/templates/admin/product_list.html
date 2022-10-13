@@ -88,10 +88,19 @@
                                 </select>
                             </div>
                             <div class="product-search">
-                                <input type="text" class="product-input">
+                                <input type="text" class="product-input" placeholder="상품명">
                                 <button type="button" class="search-button black-button">검색</button>
                             </div>
                         </div>
+                        <ul class="page-buttons">
+                            <a href=""><li>&#60;</li></a>
+                            <a href=""><li>1</li></a>
+                            <a href=""><li>2</li></a>
+                            <a href=""><li>3</li></a>
+                            <a href=""><li>4</li></a>
+                            <a href=""><li>5</li></a>
+                            <a href=""><li>&#62;</li></a>
+                        </ul>
                         <table class="product-list">
                             <thead>
                                 <tr>
@@ -110,14 +119,14 @@
                                     <td>1</td>
                                     <td>TEES</td>
                                     <td>상품명</td>
-                                    <td>가격</td>
+                                    <td>100000<span>원</span></td>
                                     <td>색상</td>
                                     <td>사이즈</td>
-                                    <td>상세</td>
-                                    <td>삭제</td>
+                                    <td><button type="button" class="list-button detail-button"><i class="fa-regular fa-file-lines"></i></button></td>
+                                    <td><button type="button" class="list-button delete-button"><i class="fa-regular fa-trash-can"></i></button></td>
                                 </tr>
                                 <tr class="product-detail">
-                                    <td colspan="9">
+                                    <td colspan="8">
                                         <table class="product-info">
                                             <tr>
                                                 <td><input type="text" class="product-input" placeholder="가격"></td>
@@ -147,6 +156,25 @@
                                             <tr>
                                                 <td colspan="3">
                                                     <textarea class="product-input" placeholder="배송 설명"></textarea>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3">
+                                                    <form enctype="multipart/form-data">
+                                                        <div class="product-img-inputs">
+                                                            <label>상품 이미지</label>
+                                                            <button type="button" class="add-button">추가</button>
+                                                            <input type="file" class="file-input product-invisible" name="file" multiple>
+                                                        </div>
+                                                    </form>
+                                                    <div class="product-images">
+                                                        
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3">
+                                                    <button type="button" class="black-button update-button">수정하기</button>
                                                 </td>
                                             </tr>
                                         </table>

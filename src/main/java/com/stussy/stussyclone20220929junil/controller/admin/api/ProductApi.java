@@ -9,11 +9,10 @@ import com.stussy.stussyclone20220929junil.exception.CustomInternalServerErrorEx
 import com.stussy.stussyclone20220929junil.service.admin.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/api/admin")
 @RestController
@@ -26,9 +25,26 @@ public class ProductApi {
     @LogAspect
     @PostMapping("/product")
     public ResponseEntity<?> addProduct(@Validated(ValidationSequence.class) ProductAdditionReqDto productAdditionReqDto, BindingResult bindingResult) throws Exception {
+
+//        String productName = productAdditionReqDto.getName();
+//
+//        for(int i = 0; i < 200; i++) {
+//            if(i % 4 == 0){
+//                productAdditionReqDto.setName(productName + "-" + (i + 1));
+//            }
+//            productService.addProduct(productAdditionReqDto);
+//        }
+
         return ResponseEntity
                 .created(null)
                 .body(new CMRespDto<>(1, "Successfully", productService.addProduct(productAdditionReqDto)));
     }
 
+    @GetMapping("/products")
+    public ResponseEntity<?> getProductList(@RequestParam int pageNumber,
+                                            @RequestParam @Nullable String category,
+                                            @RequestParam @Nullable String searchText) throws Exception {
+
+        return ResponseEntity.ok(new CMRespDto<>(1, "Successfully", productService.getProductList(pageNumber, category, searchText)));
+    }
 }

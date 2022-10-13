@@ -5,7 +5,7 @@
 <mapper namespace="com.stussy.stussyclone20220929junil.repository.admin.ProductRepository">
 
     <resultMap id="product_img_files" type="com.stussy.stussyclone20220929junil.domain.ProductImgFile">
-        <result property="id" column="id"></result>
+        <result property="id" column="img_id"></result>
         <result property="product_id" column="product_id"></result>
         <result property="origin_name" column="origin_name"></result>
         <result property="temp_name" column="temp_name"></result>
@@ -76,6 +76,35 @@
         </foreach>
 
     </insert>
+
+    <select id="getProductList" parameterType="java.util.HashMap" resultMap="product">
+        SELECT
+            pm.id,
+            pm.category,
+            pm.group_id,
+            pm.name,
+            pm.price,
+            pm.color,
+            pm.size,
+            pm.info_simple,
+            pm.info_detail,
+            pm.info_option,
+            pm.info_management,
+            pm.info_shipping,
+            pm.create_date,
+            pm.update_date,
+            pim.id AS img_id,
+            pim.product_id,
+            pim.origin_name,
+            pim.temp_name
+        from
+            (SELECT
+                *
+            FROM
+                product_mst
+            LIMIT #{index}, 10) pm
+            left outer join product_img pim ON(pim.product_id = pm.id)
+    </select>
     
     
 </mapper>

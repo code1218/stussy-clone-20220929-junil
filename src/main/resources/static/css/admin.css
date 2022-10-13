@@ -106,14 +106,59 @@ textarea {
 
 /*<<<<<<<<<<<<<<<<< LIST >>>>>>>>>>>>>>>*/
 
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.category-select {
+    width: 200px;
+}
+
+.product-search {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 400px;
+}
+
+.product-search input, button {
+    margin: 0px 0px 15px 10px;
+    padding: 10px;
+}
+
+.page-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin: 15px 0px;
+    width: 140px;
+}
+.page-buttons li {
+    border: 1px solid rgb(198, 198, 198);
+    border-radius: 2px;
+    width: 17px;
+    text-align: center;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
-    border: 1px solid black;
+    border: 1px solid rgb(198, 198, 198);
+}
+
+.product-list {
+    margin-bottom: 20px;
 }
 
 .product-info {
     border: none;
+}
+
+th, td {
+    border: 1px solid rgb(198, 198, 198);
+    padding: 5px 5px;
+    text-align: center;
 }
 
 th:nth-child(1) {
@@ -138,13 +183,18 @@ th:nth-child(8) {
     width: 70px;
 }
 
-.product-list th, .product-list td {
-    padding: 0px 5px;
-    height: 25px;
+td:nth-child(2) {
+    text-align: left;
+}
+td:nth-child(3) {
+    text-align: left;
+}
+td:nth-child(4) {
+    text-align: right;
 }
 
-th, td {
-    border: 1px solid black;
+.product-list th, .product-list td {
+    height: 25px;
 }
 
 .product-info td {
@@ -153,4 +203,36 @@ th, td {
 
 .detail-invisible {
     display: none;
+}
+
+.list-button {
+    margin: 0;
+    border: none;
+    border-radius: 5px;
+    padding: 0;
+    width: 40px;
+    height: 30px;
+}
+
+.detail-button {
+    color: rgb(0, 200, 255);
+}
+
+.delete-button {
+    color: rgb(255, 64, 0);
+}
+
+.list-button .fa-regular {
+    font-size: 14px;
+}
+
+.product-info textarea {
+    height: 60px;
+}
+
+.update-button {
+    margin: 0px;
+    padding: 15px;
+    width: 100%;
+    
 }

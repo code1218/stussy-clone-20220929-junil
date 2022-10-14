@@ -104,9 +104,29 @@
                 *
             FROM
                 product_mst
+            where
+                1 = 1
+            <if test='category != "ALL"'>
+                AND category = #{category}
+            </if>
+            <if test='searchText != null || searchText != ""'>
+                AND name like CONCAT('%', #{searchText}, '%')
+            </if>
             LIMIT #{index}, 10) pm
             left outer join product_img pim ON(pim.product_id = pm.id)
-            left outer join (select count(*) as product_total_count from product_mst) pc on(1=1)
+            left outer join (select
+                                    count(*) as product_total_count
+                                from
+                                    product_mst
+                                where
+                                    1 = 1
+                                    <if test='category != "ALL"'>
+                                        AND category = #{category}
+                                    </if>
+                                    <if test='searchText != null || searchText != ""'>
+                                        AND name like CONCAT('%', #{searchText}, '%')
+                                    </if>
+                                ) pc on(1=1)
     </select>
     
     

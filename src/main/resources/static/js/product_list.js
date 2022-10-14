@@ -1,4 +1,7 @@
 const categorySelectInput = document.querySelector(".category-select .product-input");
+const searchInput = document.querySelector(".product-search .product-input");
+const searchButton = document.querySelector(".search-button"); 
+
 
 let page = 1;
 let category = "ALL";
@@ -21,8 +24,13 @@ function getList() {
         dataType: "json",
         success: (response) => {
             console.log(response);
-            loadPageNumberButtons(response.data[0].productTotalCount);
-            addProducts(response.data);
+            if(response.data.length != 0) {
+                loadPageNumberButtons(response.data[0].productTotalCount);
+                addProducts(response.data);
+            }else {
+                alert("등록된 상품이 없습니다.");
+                location.reload();
+            }
         },
         error: (error) => {
             console.log(error);
@@ -33,6 +41,19 @@ function getList() {
 categorySelectInput.onchange = () => {
     page = 1;
     category = categorySelectInput.value;
+    getList();
+}
+
+searchInput.onkeyup = () => {
+    if(window.event.keyCode == 13) {
+        searchButton.click();
+    }
+}
+
+searchButton.onclick = () => {
+    page = 1;
+    category = categorySelectInput.value;
+    searchText = searchInput.value;
     getList();
 }
 

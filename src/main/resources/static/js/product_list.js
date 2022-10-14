@@ -1,5 +1,8 @@
+const categorySelectInput = document.querySelector(".category-select .product-input");
 
-let page = 21;
+let page = 1;
+let category = "ALL";
+let searchText = "";
 
 window.onload = () => {
     getList();
@@ -11,9 +14,9 @@ function getList() {
         type: "get",
         url: "/api/admin/products",
         data: {
-            pageNumber: page,
-            category: "",
-            searchText: ""
+            "pageNumber": page,
+            "category": category,
+            "searchText": searchText
         },
         dataType: "json",
         success: (response) => {
@@ -25,6 +28,12 @@ function getList() {
             console.log(error);
         }
     });
+}
+
+categorySelectInput.onchange = () => {
+    page = 1;
+    category = categorySelectInput.value;
+    getList();
 }
 
 function loadPageNumberButtons(productTotalCount) {
@@ -44,6 +53,39 @@ function loadPageNumberButtons(productTotalCount) {
     startIndex = ${startIndex}
     endIndex = ${endIndex}
     `);
+
+    if(page != 1){
+        pageButtons.innerHTML = `<a href="javascript:void(0)"><li>&#60;</li></a>`;
+    }
+    for(let i = startIndex; i <= endIndex; i++) {
+        if(i == page) {
+            pageButtons.innerHTML += `<a href="javascript:void(0)" class="a-selected"><li>${i}</li></a>`;
+        }else {
+            pageButtons.innerHTML += `<a href="javascript:void(0)"><li>${i}</li></a>`;
+        }
+        
+    }
+    if(page != maxPage){
+        pageButtons.innerHTML += `<a href="javascript:void(0)"><li>&#62;</li></a>`;
+    }
+
+    const pageNumbers = pageButtons.querySelectorAll("li");
+
+    for(let i = 0; i < pageNumbers.length; i++) {
+        pageNumbers[i].onclick = () => {
+            let pageNumberText = pageNumbers[i].textContent;
+
+            if(pageNumberText == "<") {
+                --page;
+            }else if(pageNumberText == ">") {
+                ++page;
+            }else {
+                page = pageNumberText;
+            }
+
+            getList();
+        }
+    }
 
 }   
 

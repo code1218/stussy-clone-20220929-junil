@@ -84,11 +84,12 @@ public class ProductServiceImpl implements ProductService{
         return productImgFiles;
     }
 
-    @LogAspect
     @Override
     public List<ProductListRespDto> getProductList(int pageNumber, String category, String searchText) throws Exception {
         Map<String, Object> paramsMap = new HashMap<String, Object>();
         paramsMap.put("index", (pageNumber - 1) * 10);
+        paramsMap.put("category", category);
+        paramsMap.put("searchText", searchText);
 
         List<ProductListRespDto> list = new ArrayList<ProductListRespDto>();
 

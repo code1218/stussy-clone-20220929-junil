@@ -130,10 +130,15 @@ textarea {
 
 .page-buttons {
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
     margin: 15px 0px;
     width: 140px;
 }
+
+.page-buttons a {
+    margin: 0px 2px;
+}
+
 .page-buttons li {
     border: 1px solid rgb(198, 198, 198);
     border-radius: 2px;

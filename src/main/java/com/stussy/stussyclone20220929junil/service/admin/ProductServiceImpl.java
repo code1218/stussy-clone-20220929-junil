@@ -3,6 +3,7 @@ package com.stussy.stussyclone20220929junil.service.admin;
 import com.stussy.stussyclone20220929junil.domain.Product;
 import com.stussy.stussyclone20220929junil.domain.ProductImgFile;
 import com.stussy.stussyclone20220929junil.dto.admin.ProductAdditionReqDto;
+import com.stussy.stussyclone20220929junil.dto.admin.ProductListRespDto;
 import com.stussy.stussyclone20220929junil.exception.CustomInternalServerErrorException;
 import com.stussy.stussyclone20220929junil.repository.admin.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -83,10 +84,16 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public List<Product> getProductList(int pageNumber, String category, String searchText) throws Exception {
+    public List<ProductListRespDto> getProductList(int pageNumber, String category, String searchText) throws Exception {
         Map<String, Object> paramsMap = new HashMap<String, Object>();
         paramsMap.put("index", (pageNumber - 1) * 10);
 
-        return productRepository.getProductList(paramsMap);
+        List<ProductListRespDto> list = new ArrayList<ProductListRespDto>();
+
+        productRepository.getProductList(paramsMap).forEach(product -> {
+            list.add(product.toListRespDto());
+        });
+
+        return list;
     }
 }

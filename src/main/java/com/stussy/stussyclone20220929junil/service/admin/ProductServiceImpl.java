@@ -1,5 +1,6 @@
 package com.stussy.stussyclone20220929junil.service.admin;
 
+import com.stussy.stussyclone20220929junil.aop.annotation.LogAspect;
 import com.stussy.stussyclone20220929junil.domain.Product;
 import com.stussy.stussyclone20220929junil.domain.ProductImgFile;
 import com.stussy.stussyclone20220929junil.dto.admin.ProductAdditionReqDto;
@@ -83,6 +84,7 @@ public class ProductServiceImpl implements ProductService{
         return productImgFiles;
     }
 
+    @LogAspect
     @Override
     public List<ProductListRespDto> getProductList(int pageNumber, String category, String searchText) throws Exception {
         Map<String, Object> paramsMap = new HashMap<String, Object>();

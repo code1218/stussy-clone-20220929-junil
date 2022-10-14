@@ -37,6 +37,8 @@ public class Product {
     private LocalDateTime create_date;
     private LocalDateTime update_date;
 
+    private int product_total_count;
+
     public ProductListRespDto toListRespDto() {
         return ProductListRespDto.builder()
                 .id(id)
@@ -51,6 +53,7 @@ public class Product {
                 .infoManagement(info_management)
                 .infoShipping(info_shipping)
                 .productImgFiles(product_img_files)
+                .productTotalCount(product_total_count)
                 .build();
     }
 }

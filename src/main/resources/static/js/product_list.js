@@ -1,5 +1,5 @@
 
-let page = 1;
+let page = 21;
 
 window.onload = () => {
     getList();
@@ -18,6 +18,7 @@ function getList() {
         dataType: "json",
         success: (response) => {
             console.log(response);
+            loadPageNumberButtons(response.data[0].productTotalCount);
             addProducts(response.data);
         },
         error: (error) => {
@@ -25,6 +26,27 @@ function getList() {
         }
     });
 }
+
+function loadPageNumberButtons(productTotalCount) {
+    const pageButtons = document.querySelector(".page-buttons");
+
+    pageButtons.innerHTML = "";
+
+    let maxPage = (productTotalCount % 10 == 0) ? productTotalCount / 10 : Math.floor(productTotalCount / 10) + 1;
+    let minPage = 1;
+
+    let startIndex = page % 5 == 0 ? page - 4 : page - (page % 5) + 1;
+    let endIndex = startIndex + 4 <= maxPage ? startIndex + 4 : maxPage;
+
+    console.log(`
+    totalCount = ${productTotalCount}
+    maxPage = ${maxPage}
+    startIndex = ${startIndex}
+    endIndex = ${endIndex}
+    `);
+
+}   
+
 
 function addProducts(productList) {
     const listBody = document.querySelector(".list-body");

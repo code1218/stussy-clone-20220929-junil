@@ -118,7 +118,7 @@ function addProducts(productList) {
 
     listBody.innerHTML = "";
 
-    productList.forEach((product) => {
+    productList.forEach((product, index) => {
         
         listBody.innerHTML += `
         <tr>
@@ -174,20 +174,7 @@ function addProducts(productList) {
                                 </div>
                             </form>
                             <div class="product-images">
-        `;
-        let imgDtlArray = new Array();
-        product.productImgFiles.forEach(imgFile => {
-            imgDtlArray.push(imgFile);
-            listBody.innerHTML += `
-            <div class="img-box">
-                <i class="fa-solid fa-xmark"></i>
-                <img class="product-img" src="/image/product/${imgFile.temp_name}">
-            </div>
-            `;
-        });
 
-        imgMstArray.push();                        
-        listBody.innerHTML += `
                             </div>
                         </td>
                     </tr>
@@ -201,6 +188,22 @@ function addProducts(productList) {
         </tr>
         `;
 
+        let imgDtlArray = new Array();
+
+        const productImgs = document.querySelectorAll(".product-images");
+        productImgs[index].innerHTML = "";
+
+        product.productImgFiles.forEach(imgFile => {
+            imgDtlArray.push(imgFile);
+            productImgs[index].innerHTML += `
+            <div class="img-box">
+                <i class="fa-solid fa-xmark"></i>
+                <img class="product-img" src="/image/product/${imgFile.temp_name}">
+            </div>
+            `;
+        });
+
+        imgMstArray.push(imgDtlArray);
     });
 
     const detailButtons = document.querySelectorAll(".detail-button");

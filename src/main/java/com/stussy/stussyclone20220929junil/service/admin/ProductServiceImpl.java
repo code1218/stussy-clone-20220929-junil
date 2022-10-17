@@ -59,7 +59,7 @@ public class ProductServiceImpl implements ProductService{
             String extension = originName.substring(originName.lastIndexOf("."));
             String temp_name = UUID.randomUUID().toString() + extension;
 
-            Path uploadPath = Paths.get(filePath + "/product" + temp_name);
+            Path uploadPath = Paths.get(filePath + "/product/" + temp_name);
 
             File f = new File(filePath + "/product");
             if(!f.exists()) {

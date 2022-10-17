@@ -143,15 +143,31 @@ function addProducts(productList) {
 
     detailButtons.forEach((detailButton, index) => {
         detailButton.onclick = () => {
-            productDetails.forEach((productDetail, index2) => {
-                if(index2 != index){
-                    productDetail.classList.add("detail-invisible");
-                }
-            })
 
             if(productDetails[index].classList.contains("detail-invisible")) {
-                getProductDetail(productDetails[index], index);
-                productDetails[index].classList.remove("detail-invisible");
+                let changeRequestFlag = false;
+                let changeFlag = false;
+                productDetails.forEach((productDetail, index2) => {
+                    if(!productDetail.classList.contains("detail-invisible") && index2 != index){
+                        changeRequestFlag = true;
+                        changeFlag = confirm("수정을 취소하시겠습니까?");
+                        if(changeFlag) {
+                            productDetail.classList.add("detail-invisible");
+                            productDetail.innerHTML = "";
+                            getProductDetail(productDetails[index], index);
+                            productDetails[index].classList.remove("detail-invisible");
+                        }
+                    }else {
+                        if(changeRequestFlag && changeFlag) {
+                            getProductDetail(productDetails[index], index);
+                            productDetails[index].classList.remove("detail-invisible");
+                        }else if(!changeRequestFlag) {
+                            getProductDetail(productDetails[index], index);
+                            productDetails[index].classList.remove("detail-invisible");
+                        }
+                    }
+                });
+                
             }else{
                 if(confirm("수정을 취소하시겠습니까?")){
                     productDetails[index].classList.add("detail-invisible");

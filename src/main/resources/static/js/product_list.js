@@ -4,6 +4,8 @@ const searchButton = document.querySelector(".search-button");
 
 let productDataList = null;
 let productImgList = null;
+let productFileImgList = new Array();
+let productImageFiles = new Array();
 
 let page = 1;
 let category = "ALL";
@@ -243,5 +245,92 @@ function getProductDetail(productDetail, index) {
         </table>
     </td>
     `;
+
+    loadImageList();
+    addImageFile();
+}
+
+function loadImageList() {
+    const productImages = document.querySelector(".product-images");
+    productImages.innerHTML = "";
+
+    productImgList.forEach(img => {
+        productImages.innerHTML += `
+            <div class="img-box">
+                <i class="fa-solid fa-xmark pre-delete"></i>
+                <img class="product-img" src="/image/product/${img.temp_name}">
+            </div>
+        `;
+    });
+
+    const preDeleteButton = document.querySelectorAll(".pre-delete");
+    preDeleteButton.forEach((xbutton, index) => {
+        xbutton.onclick = () => {
+            if(confirm("상품 이미지를 지우시겠습니까?")) {
+                productImgList.splice(index, 1);
+                loadImageList()
+            }
+        };
+    })
+
+    productFileImgList.forEach((img) => {
+        productImages.innerHTML += `
+            <div class="img-box">
+                <i class="fa-solid fa-xmark post-delete"></i>
+                <img class="product-img" src="${img}">
+            </div>
+        `;
+    });
+
+    const postDeleteButton = document.querySelectorAll(".post-delete");
+    postDeleteButton.forEach((xbutton, index) => {
+        xbutton.onclick = () => {
+            if(confirm("상품 이미지를 지우시겠습니까?")) {
+                productFileImgList.splice(index, 1);
+                loadImageList()
+            }
+        };
+    })
+}
+
+function addImageFile() {
+    const fileAddButton = document.querySelector(".add-button");
+    const fileInput = document.querySelector(".file-input");
+
     
+
+    fileAddButton.onclick = () => {
+        fileInput.click();
+    }
+
+    fileInput.onchange = () => {
+        const formData = new FormData(document.querySelector("form"));
+        let changeFlge = false;
+
+        formData.forEach((value) => {
+            if(value.size != 0) {
+                productImageFiles.push(value);
+                changeFlge = true;
+            }
+        });
+        
+        if(changeFlge){
+            getImageFiles(productImageFiles);
+            fileInput.value = null;
+        }
+    }
+}
+
+function getImageFiles(productImageFiles) {
+    productImageFiles.forEach((file, i) => {
+        const reader = new FileReader();
+    
+        reader.onload = (e) => {
+            productFileImgList.push(e.target.result);
+        }
+
+        setTimeout(reader.readAsDataURL(file), i * 100);
+    });
+
+    setTimeout(loadImageList(), 2000);
 }

@@ -55,8 +55,6 @@ function getImagePreview() {
         }
 
         setTimeout(reader.readAsDataURL(file), i * 100);
-        
-        
     });
 }
 

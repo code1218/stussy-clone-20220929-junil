@@ -3,6 +3,7 @@ const searchInput = document.querySelector(".product-search .product-input");
 const searchButton = document.querySelector(".search-button"); 
 
 let productDataList = null;
+let productImgList = null;
 
 let page = 1;
 let category = "ALL";
@@ -145,11 +146,17 @@ function addProducts(productList) {
         detailButton.onclick = () => {
 
             if(productDetails[index].classList.contains("detail-invisible")) {
-                let changeRequestFlag = false;
+                let confirmationOfModification = false;
                 let changeFlag = false;
+
                 productDetails.forEach((productDetail, index2) => {
                     if(!productDetail.classList.contains("detail-invisible") && index2 != index){
-                        changeRequestFlag = true;
+                        confirmationOfModification = true;
+                    }
+                });
+
+                productDetails.forEach((productDetail, index2) => {
+                    if(!productDetail.classList.contains("detail-invisible") && index2 != index){
                         changeFlag = confirm("수정을 취소하시겠습니까?");
                         if(changeFlag) {
                             productDetail.classList.add("detail-invisible");
@@ -158,10 +165,10 @@ function addProducts(productList) {
                             productDetails[index].classList.remove("detail-invisible");
                         }
                     }else {
-                        if(changeRequestFlag && changeFlag) {
+                        if(confirmationOfModification && changeFlag) {
                             getProductDetail(productDetails[index], index);
                             productDetails[index].classList.remove("detail-invisible");
-                        }else if(!changeRequestFlag) {
+                        }else if(!confirmationOfModification) {
                             getProductDetail(productDetails[index], index);
                             productDetails[index].classList.remove("detail-invisible");
                         }
@@ -179,6 +186,8 @@ function addProducts(productList) {
 }
 
 function getProductDetail(productDetail, index) {
+    productImgList = productDataList[index].productImgFiles;
+
     productDetail.innerHTML = `
     <td colspan="8">
         <table class="product-info">

@@ -322,15 +322,26 @@ function addImageFile() {
 }
 
 function getImageFiles(productImageFiles) {
+
+    while(productFileImgList.length != 0) {
+        productFileImgList.pop();
+    }
+
     productImageFiles.forEach((file, i) => {
         const reader = new FileReader();
     
         reader.onload = (e) => {
+            console.log("이미지 파일 하나를 리스트에 추가합니다.")
+            
             productFileImgList.push(e.target.result);
+            console.log("index: " + i);
+            if(i == productImageFiles.length - 1) {
+                console.log("마지막 인덱스일 때만 실행")
+                loadImageList();
+            }
         }
 
-        setTimeout(reader.readAsDataURL(file), i * 100);
+        setTimeout(() => {reader.readAsDataURL(file);}, i * 100);
     });
-
-    setTimeout(loadImageList(), 2000);
+    
 }

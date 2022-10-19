@@ -45,8 +45,8 @@ public class ProductApi {
     @GetMapping("/products")
     public ResponseEntity<?> getProductList(@RequestParam int page,
                                             @RequestParam @Nullable String category,
-                                            @RequestParam @Nullable String searchText) throws Exception {
+                                            @RequestParam @Nullable String searchValue) throws Exception {
 
-        return ResponseEntity.ok(new CMRespDto<>(1, "Successfully", productService.getProductList(page, category, searchText)));
+        return ResponseEntity.ok(new CMRespDto<>(1, "Successfully", productService.getProductList(page, category, searchValue)));
     }
 }

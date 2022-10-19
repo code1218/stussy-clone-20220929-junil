@@ -30,70 +30,75 @@ let productImageFiles = new Array();
 let 페이지이동버튼서비스 = {
     첫페이지번호: 1,
     마지막페이지번호: (productTotalCount) => (productTotalCount % 10 == 0) ? productTotalCount / 10 : Math.floor(productTotalCount / 10) + 1,
-    페이지번호생성: function(nowPage) {
+    페이지번호생성: function(nowPage, productTotalCount) {
         let 페이지번호인덱스 = {
             start: 0,
             end: 0
         }
 
         페이지번호인덱스.start = nowPage % 5 == 0 ? nowPage - 4 : nowPage - (nowPage % 5) + 1;
-        페이지번호인덱스.end = 페이지번호인덱스.start + 4 <= this.마지막페이지번호 ? 페이지번호인덱스.start + 4 : this.마지막페이지번호;
+        페이지번호인덱스.end = 페이지번호인덱스.start + 4 <= this.마지막페이지번호(productTotalCount) ? 페이지번호인덱스.start + 4 : this.마지막페이지번호(productTotalCount);
         
         return 페이지번호인덱스;
     }
-    
 }
 
 let 상품리스트상단기능서비스 = {
-    pageButtonsObj: () => document.querySelector(".page-buttons"),
+    nowPage: 1,
+    productTotalCount: 0,
 
-    이전페이지이동버튼생성: function(nowPage) {
-        if(nowPage != 1){
-            this.pageButtonsObj().innerHTML = `<a href="javascript:void(0)"><li>&#60;</li></a>`;
+    init: function(nowPage, productTotalCount) {
+        this.nowPage = nowPage;
+        this.productTotalCount = productTotalCount;
+    },
+
+    getPageButtonsObj: () => document.querySelector(".page-buttons"),
+
+    이전페이지이동버튼생성: function() {
+        if(this.nowPage != 1){
+            this.getPageButtonsObj().innerHTML = `<a href="javascript:void(0)"><li>&#60;</li></a>`;
         }
     },
 
-    다음페이지이동버튼생성: function(nowPage, maxPage) {
-        if(nowPage != maxPage){
-            this.pageButtonsObj().innerHTML += `<a href="javascript:void(0)"><li>&#62;</li></a>`;
+    다음페이지이동버튼생성: function() {
+        let maxPage = 페이지이동버튼서비스.마지막페이지번호(this.productTotalCount);
+        if(this.nowPage != maxPage){
+            this.getPageButtonsObj().innerHTML += `<a href="javascript:void(0)"><li>&#62;</li></a>`;
         }
     },
 
-    페이지이동버튼생성: function(nowPage, productTotalCount) {
-        const pageButtons = this.pageButtonsObj();
+    페이지이동버튼생성: function() {
+        const pageButtons = this.getPageButtonsObj();
 
         pageButtons.innerHTML = "";
+        
+        let startIndex = 페이지이동버튼서비스.페이지번호생성(this.nowPage, this.productTotalCount).start;
+        let endIndex = 페이지이동버튼서비스.페이지번호생성(this.nowPage, this.productTotalCount).end;
 
-        let maxPage = 페이지이동버튼서비스.마지막페이지번호(productTotalCount);
-        let startIndex = 페이지이동버튼서비스.페이지번호생성().start;
-        let endIndex = 페이지이동버튼서비스.페이지번호생성().end;
-
-        this.이전페이지이동버튼생성(nowPage);
-
+        this.이전페이지이동버튼생성();
         for(let i = startIndex; i <= endIndex; i++) {
-            if(i == nowPage) {
+            if(i == this.nowPage) {
                 pageButtons.innerHTML += `<a href="javascript:void(0)" class="a-selected"><li>${i}</li></a>`;
             }else {
                 pageButtons.innerHTML += `<a href="javascript:void(0)"><li>${i}</li></a>`;
             }
         }
-
-        this.다음페이지이동버튼생성(nowPage, maxPage);
+        this.다음페이지이동버튼생성();
     },
 
-    페이지이동버튼이벤트등록: function(nowPage) {
-        const pageNumbers = pageButtons.querySelectorAll("li");
+    페이지이동버튼이벤트등록: function() {
+        const pageNumbers = this.getPageButtonsObj().querySelectorAll("li");
 
         for(let i = 0; i < pageNumbers.length; i++) {
             pageNumbers[i].onclick = () => {
                 let pageNumberText = pageNumbers[i].textContent;
 
                 if(pageNumberText == "<") {
-                    --nowPage;
+                    --상품리스트requestParams.page;
                 }else if(pageNumberText == ">") {
-                    ++nowPage;
+                    ++상품리스트requestParams.page;
                 }else {
-                    nowPage = pageNumberText;
+                    상품리스트requestParams.page = pageNumberText;
                 }
 
                 상품리스트서비스.상품리스트불러오기();
@@ -105,9 +110,12 @@ let 상품리스트상단기능서비스 = {
 let 상품리스트서비스 = {
     상품리스트불러오기: function() {
         const responseData = this.상품리스트데이터요청();
+
         if(this.상품리스트데이터요청성공확인(responseData)) {
             if(responseData.length > 0) {
-                상품리스트상단기능서비스.페이지이동버튼생성(상품리스트requestParams.page, responseData.productTotalCount);
+                상품리스트상단기능서비스.init(상품리스트requestParams.page, responseData[0].productTotalCount);
+                상품리스트상단기능서비스.페이지이동버튼생성();
+                상품리스트상단기능서비스.페이지이동버튼이벤트등록();
                 //상품 리스트 불러오기
                 상품리스트목록.master상품정보생성(responseData);
             }else {

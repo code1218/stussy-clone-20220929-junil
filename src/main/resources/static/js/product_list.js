@@ -1,12 +1,19 @@
-const categorySelectInput = document.querySelector(".category-select .product-input");
-const searchInput = document.querySelector(".product-search .product-input");
-const searchButton = document.querySelector(".search-button"); 
+
 
 class ProductListReqParams {
+    static #instance = null;
+
     constructor(page, category, searchValue) {
         this.page = page;
         this.category = category;
         this.searchValue = searchValue;
+    }
+
+    static getInstance() {
+        if(this.#instance == null) {
+            this.#instance = new ProductListReqParams(1, "ALL", "");
+        }
+        return this.#instance;
     }
 
     getPage() {
@@ -33,7 +40,7 @@ class ProductListReqParams {
         this.searchValue = searchValue;
     }
 
-    getProductListReqParams() {
+    getObject() {
         return {
             page: this.page,
             category: this.category,
@@ -66,20 +73,28 @@ class ProductApi {
 }
 
 class ProductListService {
+    static #instance = null;
+
     constructor() {
         this.productApi = new ProductApi();
         this.topOptionService = new TopOptionService();
         this.productListReqParams = new ProductListReqParams(1, "ALL", "");
         this.loadProductList(this.productListReqParams);
-        alert("객체생성>?")
+    }
+
+    static getInstance() {
+        if(this.#instance == null) {
+            this.#instance = new ProductListService();
+        }
+        return this.#instance;
     }
 
     loadProductList(productListReqParams) {
         const responseData = this.productApi.productDataRequest(productListReqParams);
         if(this.isSuccessRequestStatus(responseData)) {
             if(responseData.length > 0) {
-                alert("test?")
-                this.topOptionService.loadPageMovement(this, this.productListReqParams, responseData[0].productTotalCount);
+                this.topOptionService.loadPageMovement(this.productListReqParams, responseData[0].productTotalCount);
+                
             }
         }
     }
@@ -94,9 +109,37 @@ class TopOptionService {
         this.pageMovement = new PageMovement();
     }
 
-    loadPageMovement(productListService, productListReqParams, productTotalCount) {
+    loadPageMovement(productListReqParams, productTotalCount) {
         this.pageMovement.createMoveButtons(productListReqParams.getPage(), productTotalCount);
-        this.pageMovement.addEvent(productListService, productListReqParams);
+        this.pageMovement.addEvent(productListReqParams);
+    }
+
+    addOptioinsEvent() {
+        const categorySelectInput = document.querySelector(".category-select .product-input");
+        const searchInput = document.querySelector(".product-search .product-input");
+        const searchButton = document.querySelector(".search-button"); 
+
+        categorySelectInput.onchange = () => {
+            page = 1;
+            category = categorySelectInput.value;
+            ProductListService.getInstance().loadProductList(productListReqParams);
+            getList();
+        }
+
+        searchButton.onclick = () => {
+            page = 1;
+            category = categorySelectInput.value;
+            searchText = searchInput.value;
+            getList();
+        }
+        
+        searchInput.onkeyup = () => {
+            if(window.event.keyCode == 13) {
+                searchButton.click();
+            }
+        }
+        
+        
     }
 
 }
@@ -110,8 +153,6 @@ class PageMovement {
 
     createMoveButtons(nowPage, productTotalCount) {
         this.pageButtons.innerHTML = "";
-
-        alert("test")
 
         this.createPreButton(nowPage);
         this.createNumberButton(nowPage, productTotalCount);
@@ -144,7 +185,7 @@ class PageMovement {
         }
     }
 
-    addEvent(productListService, productListReqParams) {
+    addEvent(productListReqParams) {
         const pageNumbers = this.pageButtons.querySelectorAll("li");
 
         for(let i = 0; i < pageNumbers.length; i++) {
@@ -159,7 +200,7 @@ class PageMovement {
                     productListReqParams.setPage(pageNumberText);
                 }
 
-                productListService.loadProductList(productListReqParams);
+                ProductListService.getInstance().loadProductList(productListReqParams);
             }
         }
     }
@@ -218,35 +259,6 @@ const 상품리스트목록 = {
         });
     }
 }
-
-
-
-
-
-
-
-categorySelectInput.onchange = () => {
-    page = 1;
-    category = categorySelectInput.value;
-    getList();
-}
-
-searchInput.onkeyup = () => {
-    if(window.event.keyCode == 13) {
-        searchButton.click();
-    }
-}
-
-searchButton.onclick = () => {
-    page = 1;
-    category = categorySelectInput.value;
-    searchText = searchInput.value;
-    getList();
-}
-
-
-
-
 
 
 
@@ -467,5 +479,5 @@ function getImageFiles(productImageFiles) {
 
 
 window.onload = () => {
-    const a = new ProductListService();
+    new ProductListService();
 }

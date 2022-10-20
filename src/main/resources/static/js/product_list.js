@@ -51,6 +51,27 @@ class ProductApi {
 
         return responseData;
     }
+
+    productDataUpdateRequest(formData) {
+        $.ajax({
+            async: false,
+            type: "post",
+            url: "/api/admin/product/modification",
+            enctype: "multipart/form-data",
+            contentType: false,
+            processData: false,
+            data: formData,
+            dataType: "json",
+            success: (response) => {
+                alert("상품 수정 완료");
+                location.reload();
+            },
+            error: (error) => {
+                alert("상품 등록 실패");
+                console.log(error);
+            }
+        });
+    }
 }
 
 class ProductListService {
@@ -81,6 +102,10 @@ class ProductListService {
 
     isSuccessRequestStatus(responseData) {
         return responseData != null;
+    }
+
+    updatePoduct(productRepository) {
+        this.productApi.productDataUpdateRequest(productRepository.updateFormData);
     }
 }
 
@@ -336,6 +361,8 @@ class ElementService {
         const productImgFileService = new ProductImgFileService(productRepository);
         this.createProductDtlImgs(productRepository);
         productImgFileService.addImageFileEvent();
+        this.addUpdateButtonEvent(productRepository);
+        
     }
 
     createProductDtlImgs(productRepository) {
@@ -388,6 +415,14 @@ class ElementService {
         })
     }
 
+    addUpdateButtonEvent(productRepository) {
+        const updateButton = document.querySelector(".update-button");
+
+        updateButton.onclick = () => {
+            productRepository.toUpdateFormData(this.#productDtl.id);
+            ProductListService.getInstance().updatePoduct(productRepository);
+        }
+    }
 }
 
 class ProductRepository {
@@ -402,7 +437,30 @@ class ProductRepository {
         this.oldImgDeleteList = new Array();
         this.newImgList = new Array();
         this.newImgSrcList = new Array();
-        this.newImgFormData = new FormData();
+        this.updateFormData = new FormData();
+    }
+
+    toUpdateFormData(productId) {
+        const productInputs = document.querySelectorAll(".product-info .product-input");
+        console.log(productInputs);
+
+        this.updateFormData.append("id", productId);
+        this.updateFormData.append("price", productInputs[0].value);
+        this.updateFormData.append("color", productInputs[1].value);
+        this.updateFormData.append("size", productInputs[2].value);
+        this.updateFormData.append("infoSimple", productInputs[3].value);
+        this.updateFormData.append("infoDetail", productInputs[4].value);
+        this.updateFormData.append("infoOption", productInputs[5].value);
+        this.updateFormData.append("infoManagement", productInputs[6].value);
+        this.updateFormData.append("infoShipping", productInputs[7].value);
+
+        this.oldImgDeleteList.forEach(deleteImgFile => {
+            this.updateFormData.append("deleteImgFiles", deleteImgFile.temp_name);
+        });
+
+        this.newImgList.forEach(newImgFile => {
+            this.updateFormData.append("files", newImgFile);
+        });
     }
     
 }

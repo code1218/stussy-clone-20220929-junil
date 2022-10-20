@@ -51,14 +51,14 @@ class ProductListReqParams {
 
 class ProductApi {
 
-    productDataRequest(productListReqParams) {
+    productDataRequest() {
         let responseData = null;
 
         $.ajax({
             async: false,
             type: "get",
             url: "/api/admin/products",
-            data: productListReqParams.getProductListReqParams(),
+            data: ProductListReqParams.getInstance().getObject(),
             dataType: "json",
             success: (response) => {
                 responseData = response.data;
@@ -78,8 +78,7 @@ class ProductListService {
     constructor() {
         this.productApi = new ProductApi();
         this.topOptionService = new TopOptionService();
-        this.productListReqParams = new ProductListReqParams(1, "ALL", "");
-        this.loadProductList(this.productListReqParams);
+        this.loadProductList();
     }
 
     static getInstance() {
@@ -89,11 +88,11 @@ class ProductListService {
         return this.#instance;
     }
 
-    loadProductList(productListReqParams) {
-        const responseData = this.productApi.productDataRequest(productListReqParams);
+    loadProductList() {
+        const responseData = this.productApi.productDataRequest();
         if(this.isSuccessRequestStatus(responseData)) {
             if(responseData.length > 0) {
-                this.topOptionService.loadPageMovement(this.productListReqParams, responseData[0].productTotalCount);
+                this.topOptionService.loadPageMovement(responseData[0].productTotalCount);
                 
             }
         }
@@ -109,9 +108,9 @@ class TopOptionService {
         this.pageMovement = new PageMovement();
     }
 
-    loadPageMovement(productListReqParams, productTotalCount) {
-        this.pageMovement.createMoveButtons(productListReqParams.getPage(), productTotalCount);
-        this.pageMovement.addEvent(productListReqParams);
+    loadPageMovement(productTotalCount) {
+        this.pageMovement.createMoveButtons(productTotalCount);
+        this.pageMovement.addEvent();
     }
 
     addOptioinsEvent() {
@@ -119,18 +118,19 @@ class TopOptionService {
         const searchInput = document.querySelector(".product-search .product-input");
         const searchButton = document.querySelector(".search-button"); 
 
+        const productListReqParams = ProductListReqParams.getInstance();
+
         categorySelectInput.onchange = () => {
-            page = 1;
-            category = categorySelectInput.value;
-            ProductListService.getInstance().loadProductList(productListReqParams);
-            getList();
+            productListReqParams.setPage(1);
+            productListReqParams.setCategory(categorySelectInput.value);
+            ProductListService.getInstance().loadProductList();
         }
 
         searchButton.onclick = () => {
-            page = 1;
-            category = categorySelectInput.value;
-            searchText = searchInput.value;
-            getList();
+            productListReqParams.setPage(1);
+            productListReqParams.setCategory(categorySelectInput.value);
+            productListReqParams.setSearchValue(searchInput.value);
+            ProductListService.getInstance().loadProductList();
         }
         
         searchInput.onkeyup = () => {
@@ -151,12 +151,14 @@ class PageMovement {
         return (productTotalCount % 10 == 0) ? productTotalCount / 10 : Math.floor(productTotalCount / 10) + 1;
     }
 
-    createMoveButtons(nowPage, productTotalCount) {
+    createMoveButtons(productTotalCount) {
+        let nowPage = ProductListReqParams.getInstance().getPage();
+
         this.pageButtons.innerHTML = "";
 
         this.createPreButton(nowPage);
         this.createNumberButton(nowPage, productTotalCount);
-        this.createPostButton(nowPage);
+        this.createPostButton(nowPage, productTotalCount);
     }
 
     createNumberButton(nowPage, productTotalCount) {
@@ -185,8 +187,9 @@ class PageMovement {
         }
     }
 
-    addEvent(productListReqParams) {
+    addEvent() {
         const pageNumbers = this.pageButtons.querySelectorAll("li");
+        const productListReqParams = ProductListReqParams.getInstance();
 
         for(let i = 0; i < pageNumbers.length; i++) {
             pageNumbers[i].onclick = () => {
@@ -200,7 +203,7 @@ class PageMovement {
                     productListReqParams.setPage(pageNumberText);
                 }
 
-                ProductListService.getInstance().loadProductList(productListReqParams);
+                ProductListService.getInstance().loadProductList();
             }
         }
     }
@@ -234,8 +237,17 @@ let productImageFiles = new Array();
 
 
 
-const 상품리스트목록 = {
-    master상품정보생성: function(responseData) {
+class ElementService {
+    static #instance = null;
+
+    static getInstance() {
+        if(this.#instance == null) {
+            this.#instance = new ElementService();
+        }
+        return this.#instance;
+    }
+
+    createProductMst() {
         const listBody = document.querySelector(".list-body");
 
         listBody.innerHTML = "";

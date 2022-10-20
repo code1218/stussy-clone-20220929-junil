@@ -331,11 +331,11 @@ class ElementService {
             </table>
         </td>
         `;
-    
-        // loadImageList();
-        // addImageFile();
+
         const productRepository = new ProductRepository(this.#productDtl);
+        const productImgFileService = new ProductImgFileService(productRepository);
         this.createProductDtlImgs(productRepository);
+        productImgFileService.addImageFileEvent();
     }
 
     createProductDtlImgs(productRepository) {
@@ -352,7 +352,7 @@ class ElementService {
             `;
         });
     
-        productRepository.newImgList.forEach((img) => {
+        productRepository.newImgSrcList.forEach((img) => {
             productImages.innerHTML += `
                 <div class="img-box">
                     <i class="fa-solid fa-xmark post-delete"></i>
@@ -369,8 +369,9 @@ class ElementService {
         preDeleteButton.forEach((xbutton, index) => {
             xbutton.onclick = () => {
                 if(confirm("상품 이미지를 지우시겠습니까?")) {
+                    productRepository.oldImgDeleteList.push(productRepository.oldImgList[index]);
                     productRepository.oldImgList.splice(index, 1);
-                    this.createProductDtlImgs();
+                    this.createProductDtlImgs(productRepository);
                 }
             };
         })
@@ -380,7 +381,8 @@ class ElementService {
             xbutton.onclick = () => {
                 if(confirm("상품 이미지를 지우시겠습니까?")) {
                     productRepository.newImgList.splice(index, 1);
-                    this.createProductDtlImgs();
+                    productRepository.newImgSrcList.splice(index, 1);
+                    this.createProductDtlImgs(productRepository);
                 }
             };
         })
@@ -392,77 +394,80 @@ class ProductRepository {
     oldImgList;
     oldImgDeleteList;
     newImgList;
-    newImgFormData;
+    newImgSrcList;
+    updateFormData;
 
     constructor(productDtl) {
         this.oldImgList = productDtl.productImgFiles;
         this.oldImgDeleteList = new Array();
         this.newImgList = new Array();
+        this.newImgSrcList = new Array();
         this.newImgFormData = new FormData();
     }
     
 }
 
-function loadImageList() {
-    const productImages = document.querySelector(".product-images");
-    productImages.innerHTML = "";
+class ProductImgFileService {
 
-    
+    productRepository = null;
 
-    
-}
-
-function addImageFile() {
-    const fileAddButton = document.querySelector(".add-button");
-    const fileInput = document.querySelector(".file-input");
-
-    fileAddButton.onclick = () => {
-        fileInput.click();
+    constructor(productRepository) {
+        this.productRepository = productRepository;
     }
 
-    fileInput.onchange = () => {
-        const formData = new FormData(document.querySelector("form"));
-        let changeFlge = false;
+    addImageFileEvent() {
+        const fileAddButton = document.querySelector(".add-button");
+        const fileInput = document.querySelector(".file-input");
+    
+        fileAddButton.onclick = () => {
+            fileInput.click();
+        }
+    
+        fileInput.onchange = () => {
+            const formData = new FormData(document.querySelector("form"));
+            let changeFlge = false;
+    
+            formData.forEach((value) => {
+                if(value.size != 0) {
+                    this.productRepository.newImgList.push(value);
+                    changeFlge = true;
+                }
+            });
 
-        formData.forEach((value) => {
-            if(value.size != 0) {
-                productImageFiles.push(value);
-                changeFlge = true;
+            console.log("newImgList: " + this.productRepository.newImgList.length);
+            
+            if(changeFlge){
+                this.getImageFiles();
+                fileInput.value = null;
             }
+        }
+    }
+
+    getImageFiles() {
+        const newImgeList = this.productRepository.newImgList;
+
+        while(this.productRepository.newImgSrcList.length != 0) {
+            this.productRepository.newImgSrcList.pop();
+        }
+    
+        newImgeList.forEach((file, i) => {
+            const reader = new FileReader();
+        
+            reader.onload = (e) => {
+                console.log("이미지 파일 하나를 리스트에 추가합니다.")
+                
+                this.productRepository.newImgSrcList.push(e.target.result);
+                if(i == newImgeList.length - 1) {
+                    console.log("마지막 인덱스일 때만 실행")
+                    ElementService.getInstance().createProductDtlImgs(this.productRepository);
+                }
+            }
+    
+            setTimeout(() => {reader.readAsDataURL(file);}, i * 100);
         });
         
-        if(changeFlge){
-            getImageFiles(productImageFiles);
-            fileInput.value = null;
-        }
     }
 }
-
-function getImageFiles(productImageFiles) {
-
-    while(productFileImgList.length != 0) {
-        productFileImgList.pop();
-    }
-
-    productImageFiles.forEach((file, i) => {
-        const reader = new FileReader();
-    
-        reader.onload = (e) => {
-            console.log("이미지 파일 하나를 리스트에 추가합니다.")
-            
-            productFileImgList.push(e.target.result);
-            console.log("index: " + i);
-            if(i == productImageFiles.length - 1) {
-                console.log("마지막 인덱스일 때만 실행")
-                loadImageList();
-            }
-        }
-
-        setTimeout(() => {reader.readAsDataURL(file);}, i * 100);
-    });
-    
-}
-
 
 
 window.onload = () => {

@@ -16,6 +16,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RequestMapping("/api/admin")
 @RestController
 @RequiredArgsConstructor
@@ -53,9 +55,9 @@ public class ProductApi {
     }
 
     @LogAspect
-//    @ValidAspect
+    @ValidAspect
     @PostMapping("/product/modification")
-    public ResponseEntity<?> updateProduct(ProductModificationReqDto productModificationReqDto) throws Exception {
+    public ResponseEntity<?> updateProduct(@Valid ProductModificationReqDto productModificationReqDto, BindingResult bindingResult) throws Exception {
 
 
 

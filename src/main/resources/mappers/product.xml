@@ -128,6 +128,22 @@
                                     </if>
                                 ) pc on(1=1)
     </select>
-    
+
+    <update id="setProduct" parameterType="com.stussy.stussyclone20220929junil.domain.Product">
+        update
+            product_mst
+        set
+            price = #{price},
+            color = #{color},
+            size = #{size},
+            info_simple = #{info_simple},
+            info_detail = #{info_detail},
+            info_option = #{info_option},
+            info_management = #{info_management},
+            info_shipping = #{info_shipping},
+            update_date = now()
+        where
+            id = #{id}
+    </update>
     
 </mapper>

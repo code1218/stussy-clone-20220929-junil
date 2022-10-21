@@ -5,6 +5,7 @@ import com.stussy.stussyclone20220929junil.domain.Product;
 import com.stussy.stussyclone20220929junil.domain.ProductImgFile;
 import com.stussy.stussyclone20220929junil.dto.admin.ProductAdditionReqDto;
 import com.stussy.stussyclone20220929junil.dto.admin.ProductListRespDto;
+import com.stussy.stussyclone20220929junil.dto.admin.ProductModificationReqDto;
 import com.stussy.stussyclone20220929junil.exception.CustomInternalServerErrorException;
 import com.stussy.stussyclone20220929junil.repository.admin.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -98,5 +99,37 @@ public class ProductServiceImpl implements ProductService{
         });
 
         return list;
+    }
+
+    @Override
+    public boolean updateProduct(ProductModificationReqDto productModificationReqDto) throws Exception {
+
+        int result = productRepository.setProduct(productModificationReqDto.toProductEntity());
+
+        if(result != 0) {
+            if(productModificationReqDto.getFiles().size() > 0) {
+                insertProductImg(productModificationReqDto.getFiles(), productModificationReqDto.getId());
+            }
+
+            if(productModificationReqDto.getDeleteImgFiles().size() > 0) {
+                deleteProductImg();
+            }
+        }
+
+        return false;
+    }
+
+    private boolean insertProductImg(List<MultipartFile> files, int productId) throws Exception {
+        boolean status = false;
+
+        List<ProductImgFile> productImgFiles = getProductImgFiles(files, productId);
+
+        return productRepository.saveImgFiles(productImgFiles) > 0;
+    }
+
+    private boolean deleteProductImg() {
+        boolean status = false;
+
+        return status;
     }
 }

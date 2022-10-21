@@ -1,5 +1,6 @@
 package com.stussy.stussyclone20220929junil.dto.admin;
 
+import com.stussy.stussyclone20220929junil.domain.Product;
 import com.stussy.stussyclone20220929junil.dto.validation.ValidationGroups;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,4 +30,29 @@ public class ProductModificationReqDto {
 
     private List<String> deleteImgFiles;
     private List<MultipartFile> files;
+
+    public Product toProductEntity() {
+        return Product.builder()
+                .id(id)
+                .price(price)
+                .color(color)
+                .size(size)
+                .info_simple(infoSimple)
+                .info_detail(infoDetail)
+                .info_option(infoOption)
+                .info_management(infoManagement)
+                .info_shipping(infoShipping)
+                .build();
+    }
 }
+
+
+
+
+
+
+
+
+
+
+

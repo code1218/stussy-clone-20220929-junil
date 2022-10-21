@@ -30,20 +30,20 @@ public class ProductApi {
     @PostMapping("/product")
     public ResponseEntity<?> addProduct(@Validated(ValidationSequence.class) ProductAdditionReqDto productAdditionReqDto, BindingResult bindingResult) throws Exception {
 
-        String productName = productAdditionReqDto.getName();
-        for(int i = 0; i < 20; i++) {
-            if(i % 4 == 0){
-                productAdditionReqDto.setName(productName + "-" + (i + 1));
-            }
-            productService.addProduct(productAdditionReqDto);
-        }
-        return ResponseEntity
-                .created(null)
-                .body(new CMRespDto<>(1, "Successfully", null));
-
+//        String productName = productAdditionReqDto.getName();
+//        for(int i = 0; i < 20; i++) {
+//            if(i % 4 == 0){
+//                productAdditionReqDto.setName(productName + "-" + (i + 1));
+//            }
+//            productService.addProduct(productAdditionReqDto);
+//        }
 //        return ResponseEntity
 //                .created(null)
-//                .body(new CMRespDto<>(1, "Successfully", productService.addProduct(productAdditionReqDto)));
+//                .body(new CMRespDto<>(1, "Successfully", null));
+
+        return ResponseEntity
+                .created(null)
+                .body(new CMRespDto<>(1, "Successfully", productService.addProduct(productAdditionReqDto)));
     }
 
     @GetMapping("/products")
@@ -60,5 +60,10 @@ public class ProductApi {
     public ResponseEntity<?> updateProduct(@Valid ProductModificationReqDto productModificationReqDto, BindingResult bindingResult) throws Exception {
 
         return ResponseEntity.ok(new CMRespDto<>(1, "Successfully", productService.updateProduct(productModificationReqDto)));
+    }
+
+    @DeleteMapping("/product/{productId}")
+    public ResponseEntity<?> deleteProduct(@PathVariable int productId) throws Exception {
+        return ResponseEntity.ok(new CMRespDto<>(1, "Successfully", productService.deleteProduct(productId)));
     }
 }

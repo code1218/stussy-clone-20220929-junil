@@ -11,5 +11,6 @@ public interface ProductService {
     public boolean addProduct(ProductAdditionReqDto productAdditionReqDto) throws Exception;
     public List<ProductListRespDto> getProductList(int pageNumber, String category, String searchText) throws Exception;
     public boolean updateProduct(ProductModificationReqDto productModificationReqDto) throws Exception;
+    public boolean deleteProduct(int productId) throws Exception;
 
 }

@@ -157,5 +157,25 @@
             #{temp_name}
         </foreach>
     </delete>
+
+    <select id="getProductImgList" parameterType="Integer" resultMap="product_img_files">
+        select
+            id,
+            product_id,
+            origin_name,
+            temp_name
+        from
+            product_img
+        where
+            product_id = #{productId}
+    </select>
+
+    <delete id="deleteProduct" parameterType="Integer">
+        delete
+        from
+            product_mst
+        where
+            id = #{productId}
+    </delete>
     
 </mapper>

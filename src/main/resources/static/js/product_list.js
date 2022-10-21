@@ -72,6 +72,23 @@ class ProductApi {
             }
         });
     }
+
+    productDataDeleteRequest(productId) {
+        $.ajax({
+            async: false,
+            type: "delete",
+            url: "/api/admin/product/" + productId,
+            dataType: "json",
+            success: (response) => {
+                alert("상품 삭제 완료!");
+                location.reload();
+            },
+            error: (error) => {
+                alert("상품 삭제 실패!");
+                console.log(error);
+            }
+        });
+    }
 }
 
 class ProductListService {
@@ -253,6 +270,7 @@ class ElementService {
 
     addProductMstEvent(responseData) {
         const detailButtons = document.querySelectorAll(".detail-button");
+        const deleteButtons = document.querySelectorAll(".delete-button");
         const productDetails = document.querySelectorAll(".product-detail");
 
         detailButtons.forEach((detailButton, index) => {
@@ -295,6 +313,15 @@ class ElementService {
                         productDetails[index].innerHTML = "";
                     }
                 }            
+            }
+        });
+
+        deleteButtons.forEach((deleteButton, index) => {
+            deleteButton.onclick = () => {
+                if(confirm("상품을 삭제하시겠습니까?")){
+                    const productApi = new ProductApi();
+                    productApi.productDataDeleteRequest(responseData[index].id);
+                }
             }
         });
     }

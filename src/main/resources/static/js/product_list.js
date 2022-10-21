@@ -218,9 +218,9 @@ class PageMovement {
                 let pageNumberText = pageNumbers[i].textContent;
 
                 if(pageNumberText == "<") {
-                    productListReqParams.setPage(productListReqParams.getPage() - 1);
+                    productListReqParams.setPage(Number(productListReqParams.getPage()) - 1);
                 }else if(pageNumberText == ">") {
-                    productListReqParams.setPage(productListReqParams.getPage() + 1);
+                    productListReqParams.setPage(Number(productListReqParams.getPage()) + 1);
                 }else {
                     productListReqParams.setPage(pageNumberText);
                 }

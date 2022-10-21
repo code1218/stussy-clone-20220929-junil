@@ -1,63 +1,13 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragment/head :: head}"></head>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Account</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="/static/css/style.css">
-    <link rel="stylesheet" href="/static/css/header.css">
     <link rel="stylesheet" href="/static/css/account.css">
-    
+    <title>Account</title>
 </head>
 <body>
     <div id="container">
-        <header>
-            <div class="header-container">
-                <div class="header-flex">
-                    <div class="header-left-container">
-                        <div class="logo-container">
-                            <img class="site-logo" src="/static/images/logo/site_logo.PNG" alt="site_logo">
-                        </div>
-                        <div class="menu-container">
-                            <div class="site-nav-menu">
-                                <a href="/collections/all" class="site-nav-parent">SHOP</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="header-right-container">
-                        <button class="site-header-button">SEARCH</button>
-                        <button class="site-header-button">BAG(<span class="bac-count">1</span>)</button>
-                        <button class="site-header-button"><img class="korea-img" src="/static/images/logo/korea_img.PNG" alt="korea"></button>
-                    </div>
-                </div>
-            </div>
-            <nav class="nav-invisible">
-                <div class="site-nav-mega">
-                    <a href="/collections/new-arrivals" class="site-nav-child-link">NEW</a>
-                    <a href="/collections/denim" class="site-nav-child-link">DENIM</a>
-                    <a href="/collections/tees" class="site-nav-child-link">TEES</a>
-                    <a href="/collections/sweats" class="site-nav-child-link">SWEATS</a>
-                    <a href="/collections/overdyed" class="site-nav-child-link">OVERDYED</a>
-                    <a href="/collections/pants" class="site-nav-child-link">PANTS</a>
-                    <a href="/collections/shorts" class="site-nav-child-link">SHORTS</a>
-                    <a href="/collections/outerwear" class="site-nav-child-link">OUTERWEAR</a>
-                    <a href="/collections/knits" class="site-nav-child-link">KNITS</a>
-                    <a href="/collections/tops-shirts" class="site-nav-child-link">TOPS & SHIRTS</a>
-                    <a href="/collections/headwear" class="site-nav-child-link">HEADWEAR</a>
-                    <a href="/collections/accessories" class="site-nav-child-link">ACCESSORIES</a>
-                    <a href="/collections/all" class="site-nav-child-link">ALL</a>
-                </div>
-                <div class="site-nav-mega">
-                    <a href="/account/login" class="site-nav-child-link">ACCOUNT</a>
-                    <a href="/pages/customer-support" class="site-nav-child-link">CONTACT</a>
-                    <a href="/blogs/features" class="site-nav-child-link">FEATURES</a>
-                    <a href="/blogs/chapters" class="site-nav-child-link">CHAPTERS</a>
-                </div>
-            </nav>
-            <script src="/static/js/header.js"></script>
-        </header>
+        <header th:replace="~{fragment/header :: header}"></header>
         <main>
             <div class="login">
                 <h1 class="login-title">ACCOUNT</h1>

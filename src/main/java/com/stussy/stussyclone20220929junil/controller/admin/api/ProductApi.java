@@ -31,7 +31,7 @@ public class ProductApi {
     public ResponseEntity<?> addProduct(@Validated(ValidationSequence.class) ProductAdditionReqDto productAdditionReqDto, BindingResult bindingResult) throws Exception {
 
 //        String productName = productAdditionReqDto.getName();
-//        for(int i = 0; i < 20; i++) {
+//        for(int i = 0; i < 200; i++) {
 //            if(i % 4 == 0){
 //                productAdditionReqDto.setName(productName + "-" + (i + 1));
 //            }

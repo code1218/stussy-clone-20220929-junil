@@ -145,5 +145,17 @@
         where
             id = #{id}
     </update>
+
+    <delete id="deleteImgFiles" parameterType="hashmap">
+        delete
+        from
+            product_img
+        where
+            product_id = #{productId}
+        and temp_name in
+        <foreach collection="deleteImgFiles" item="temp_name" open="(" separator="," close=")">
+            #{temp_name}
+        </foreach>
+    </delete>
     
 </mapper>

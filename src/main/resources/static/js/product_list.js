@@ -67,7 +67,7 @@ class ProductApi {
                 location.reload();
             },
             error: (error) => {
-                alert("상품 등록 실패");
+                alert("상품 수정 실패");
                 console.log(error);
             }
         });
@@ -115,11 +115,12 @@ class TopOptionService {
     }
 
     loadPageMovement(productTotalCount) {
+        this.addOptionsEvent();
         this.pageMovement.createMoveButtons(productTotalCount);
         this.pageMovement.addEvent();
     }
 
-    addOptioinsEvent() {
+    addOptionsEvent() {
         const categorySelectInput = document.querySelector(".category-select .product-input");
         const searchInput = document.querySelector(".product-search .product-input");
         const searchButton = document.querySelector(".search-button"); 

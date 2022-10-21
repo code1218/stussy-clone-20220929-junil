@@ -59,8 +59,6 @@ public class ProductApi {
     @PostMapping("/product/modification")
     public ResponseEntity<?> updateProduct(@Valid ProductModificationReqDto productModificationReqDto, BindingResult bindingResult) throws Exception {
 
-
-
-        return ResponseEntity.ok(new CMRespDto<>(1, "Successfully", true));
+        return ResponseEntity.ok(new CMRespDto<>(1, "Successfully", productService.updateProduct(productModificationReqDto)));
     }
 }

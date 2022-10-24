@@ -84,6 +84,10 @@ class CollectionsService {
             `;
         });
     }
+
+    addScrollEvent() {
+        
+    }
 }
 
 window.onload = () => {

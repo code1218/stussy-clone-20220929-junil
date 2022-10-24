@@ -13,10 +13,25 @@
             pm.group_id,
             pm.NAME,
             pm.price,
-            pig.temp_name
+            pig.temp_name,
+            pc.total_count
         FROM
             product_mst pm
             LEFT OUTER JOIN product_img pig ON(pig.product_id = pm.id)
+            LEFT OUTER JOIN (select
+                                    COUNT(*) AS total_count
+                                from
+                                    (select
+                                        *
+                                    from
+                                        product_mst
+                                    where
+                                        1 = 1
+                                        <if test='category != "all"'>
+                                            and pm.category = #{category}
+                                        </if>
+                                    GROUP by
+                                        group_id) cnt) pc ON(1 = 1)
         where
             1 = 1
             <if test='category != "all"'>

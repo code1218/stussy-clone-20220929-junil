@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stussy.stussyclone20220929junil.repository.ShopRepository">
+    <select id="getCollectionList"
+            parameterType="hashmap"
+            resultType="com.stussy.stussyclone20220929junil.domain.CollectionProduct">
+
+        SELECT
+            pm.id,
+            pm.category,
+            pm.group_id,
+            pm.NAME,
+            pm.price,
+            pig.temp_name
+        FROM
+            product_mst pm
+            LEFT OUTER JOIN product_img pig ON(pig.product_id = pm.id)
+        where
+            1 = 1
+            <if test='category != "all"'>
+                and pm.category = #{category}
+            </if>
+        GROUP BY
+            pm.group_id
+        LIMIT #{index}, 16
+    </select>
+</mapper>

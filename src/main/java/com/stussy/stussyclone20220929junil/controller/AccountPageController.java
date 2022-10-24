@@ -23,4 +23,6 @@ public class AccountPageController {
     public String register() {
         return "account/register";
     }
+
+
 }

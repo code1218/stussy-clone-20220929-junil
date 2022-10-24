@@ -1,0 +1,11 @@
+.collection-products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    padding: 0px 87.5px;
+}
+
+.li {
+    
+}

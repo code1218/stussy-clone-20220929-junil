@@ -41,4 +41,25 @@
             pm.group_id
         LIMIT #{index}, 16
     </select>
+
+    <select id="getProduct" parameterType="Integer" resultType="">
+        SELECT
+            pm.group_id,
+            pm.name,
+            pm.price,
+            pm.color,
+            pm.size,
+            pim.temp_name
+        FROM
+            product_mst pm
+            LEFT OUTER JOIN product_img pim ON(pim.product_id = (SELECT
+                                                                        id
+                                                                    from
+                                                                        product_mst
+                                                                    where
+                                                                        group_id = #{group_id}
+                                                                    LIMIT 1))
+        WHERE
+            group_id = #{group_id}
+    </select>
 </mapper>

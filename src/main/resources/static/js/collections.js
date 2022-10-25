@@ -84,6 +84,7 @@ class CollectionsService {
             `;
         });
 
+        this.addProductClickEvent(responseData);
         this.addScrollEvent();
     }
 

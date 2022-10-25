@@ -3,9 +3,9 @@
 * {
     box-sizing: border-box;
 
-    font-family: 'Noto Sans KR', sans-serif;
+    /* font-family: 'Noto Sans KR', sans-serif; */
     font-size: 11px;
-    letter-spacing: 1px;
+    /* letter-spacing: 1px; */
 }
 
 body, html {

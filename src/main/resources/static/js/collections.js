@@ -83,13 +83,27 @@ class CollectionsService {
                 </li>
             `;
         });
+
+        this.addScrollEvent();
     }
 
     addScrollEvent() {
-        
+        const html = document.querySelector("html");
+        const body = document.querySelector("body");
+        body.onscroll = () => {
+            let scrollStatus = body.offsetHeight - html.clientHeight - html.scrollTop;
+            if(scrollStatus > -1 && scrollStatus < 30) {
+                CollectionReqParam.getInstance().setPage(Number(CollectionReqParam.getInstance().getPage()) + 1);
+                CollectionsService.getInstance().loadCollections();
+            }
+            console.log("문서 높이: " + body.offsetHeight);
+            console.log("html 높이: " + html.clientHeight);
+            console.log("스크롤 탑: " + html.scrollTop);
+        }
     }
 }
 
 window.onload = () => {
     CollectionsService.getInstance().loadCollections();
+    
 }

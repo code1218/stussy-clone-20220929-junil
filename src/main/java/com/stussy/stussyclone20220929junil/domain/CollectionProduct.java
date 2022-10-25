@@ -15,6 +15,7 @@ public class CollectionProduct {
     private String name;
     private int price;
     private String temp_name;
+    private int total_count;
 
     public CollectionListRespDto toListRespDto() {
         return CollectionListRespDto.builder()
@@ -23,6 +24,7 @@ public class CollectionProduct {
                 .name(name)
                 .price(price)
                 .imgName(temp_name)
+                .totalCount(total_count)
                 .build();
 
     }

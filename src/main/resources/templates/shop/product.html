@@ -66,12 +66,17 @@
                     <h1 class="product-title">VEIL CAMO HOODIE</h1>
                     <div class="product-price">200000</div>
                     <div class="product-form">
-                        <div class="product-size">
-                        </div>
-                        <select class="product-color">
-                        </select>
-                        <button type="button" class="black-button bag-button">ADD TO BAG</button>
-                        <button type="button" class="checkout-button">CHECKOUT</button>
+                        <form action="#" method="get">
+                            <input type="hidden" id="group-id" name="groupId">
+                            <input type="hidden" id="product-name" name="productName">
+                            <input type="hidden" id="product-price" name="productPrice">
+                            <div class="product-size">
+                            </div>
+                            <select class="product-color" name="productColor">
+                            </select>
+                            <button type="button" class="black-button bag-button">ADD TO BAG</button>
+                            <button type="submit" class="checkout-button">CHECKOUT</button>
+                        </form>
                     </div>
                     <div class="product-details">
                         <pre class="simple-info">Stone washed 400gsm fleece hoodie.</pre>

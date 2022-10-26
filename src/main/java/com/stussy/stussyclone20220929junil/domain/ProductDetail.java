@@ -16,5 +16,10 @@ public class ProductDetail {
     private int price;
     private String color;
     private String size;
+    private String info_simple;
+    private String info_detail;
+    private String info_option;
+    private String info_management;
+    private String info_shipping;
     private List<ProductImgFile> productImgFiles;
 }

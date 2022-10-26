@@ -61,6 +61,11 @@ public class ShopServiceImpl implements ShopService {
                 .groupId(productDetails.get(0).getGroup_id())
                 .name(productDetails.get(0).getName())
                 .price(productDetails.get(0).getPrice())
+                .infoSimple(productDetails.get(0).getInfo_simple())
+                .infoDetail(productDetails.get(0).getInfo_detail())
+                .infoOption(productDetails.get(0).getInfo_option())
+                .infoManagement(productDetails.get(0).getInfo_management())
+                .infoShipping(productDetails.get(0).getInfo_shipping())
                 .options(options)
                 .imgNames(imgNames)
                 .build();

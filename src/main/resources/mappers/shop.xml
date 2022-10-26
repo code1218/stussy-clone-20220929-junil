@@ -15,6 +15,12 @@
         <result property="price" column="price"></result>
         <result property="color" column="color"></result>
         <result property="size" column="size"></result>
+        <result property="info_simple" column="info_simple"></result>
+        <result property="info_detail" column="info_detail"></result>
+        <result property="info_option" column="info_option"></result>
+        <result property="info_management" column="info_management"></result>
+        <result property="info_shipping" column="info_shipping"></result>
+
         <collection property="productImgFiles" javaType="list" resultMap="product_img_file"></collection>
     </resultMap>
 
@@ -28,6 +34,7 @@
             pm.group_id,
             pm.NAME,
             pm.price,
+            pm.
             pig.temp_name,
             pc.total_count
         FROM
@@ -64,6 +71,11 @@
             pm.price,
             pm.color,
             pm.size,
+            pm.info_simple,
+            pm.info_detail,
+            pm.info_option,
+            pm.info_management,
+            pm.info_shipping,
             pim.id as file_id,
             pim.origin_name,
             pim.temp_name

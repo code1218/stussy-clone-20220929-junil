@@ -8,13 +8,14 @@
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/order.css">
     <title>결제</title>
 </head>
 <body>
     <div class="container">
         <main>
             <header class="main-header">
-                <a href="" class="logo"><img src="/static/images/logo/site_logo.PNG"></a>
+                <a href="#" class="logo"><img src="/static/images/logo/site_logo.PNG"></a>
                 <ul>
                     <li>카트<strong>&#62;</strong></li>
                     <li>정보<strong>&#62;</strong></li>
@@ -27,7 +28,7 @@
                     <h2 class="info-title">연락처 정보</h2>
                     <div class="info-detail">
                         <div class="profile-img">
-                            <img src="" alt="">
+                            <img src="/static/images/profile/profile-icon.png">
                         </div>
                         <div class="principal-detail">
                             <div class="principal-user">준일 김 (skjil1218@gmail.com)</div>
@@ -40,26 +41,53 @@
                     <select name="">
                         <option value="ko">대한민국</option>
                     </select>
-                    <input type="text" class="principal-name">
+                    <input type="text" class="principal-name" placeholder="성명">
                     <div class="address-zone">
-                        <input type="text" class="address-zonecode">
+                        <input type="text" class="address-zonecode" placeholder="우편번호">
                         <button type="button" class="black-button address-button">주소찾기</button>
                     </div>
                     <div>
-                        <input type="text" class="address-sido">
-                        <input type="text" class="address-sigungu">
+                        <input type="text" class="address-sido" placeholder="시/도">
+                        <input type="text" class="address-sigungu" placeholder="구/군/시">
                     </div>
-                    <input type="text">
+                    <input type="text" class="address-auto" placeholder="주소">
+                    <input type="text" class="address-custom" placeholder="아파트, 동/호수 등">
+                    <input type="tel" class="phone-number" placeholder="전화번호">
+                    <button type="button" class="black-button pay-button">결제하기</button>
                 </div>
-                
 
             </section>
             <footer class="main-footer">
-
+                <a href="#">환불 정책</a>
+                <a href="#">배송 정책</a>
+                <a href="#">개인정보처리방침</a>
+                <a href="#">서비스 약관</a>
             </footer>
         </main>
         <aside>
-
+            <ul class="order-summary">
+                <li class="product-list">
+                    <div class="product-img">
+                        <img src="/static/images/p1.png">
+                    </div>
+                    <div class="product-description">
+                        <h2>BULLDOG RIPPER TEE</h2>
+                        <span>Dark Red / S</span>
+                    </div>
+                    <div class="product-price">62000원</div>
+                </li>
+            </ul>
+            <div class="order-info">
+                <div class="order-price">
+                    <h3>총 상품금액</h3><span>62000원</span>
+                </div>
+                <div class="order-shipping">
+                    <h3>배송비</h3><span>무료배송</span>
+                </div>
+            </div>
+            <div class="order-total">
+                <h2>총 결제금액</h2><strong>62000원</strong>
+            </div>
         </aside>
     </div>
     <script>

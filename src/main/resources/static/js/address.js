@@ -38,7 +38,3 @@ class AddressApi {
     }
 
 }
-
-window.onload = () => {
-    AddressApi.getInstance().addAddressButtonEvent();
-}

@@ -26,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 /*<<<<<<<<<<<<<<<<<< Page >>>>>>>>>>>>>>>>*/
                 .antMatchers("/admin/**", "/api/admin/**")
                 .access("hasRole('ADMIN') or hasRole('MANAGER')")
-                .antMatchers("/account") //해당 요청 주소들은
+                .antMatchers("/account", "/order/**") //해당 요청 주소들은
                 .access("hasRole('USER') or hasRole('ADMIN') or hasRole('MANAGER')")
 
                 .antMatchers("/", "/index", "/collections/**")

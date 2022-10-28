@@ -31,7 +31,7 @@
                             <img src="/static/images/profile/profile-icon.png">
                         </div>
                         <div class="principal-detail">
-                            <div class="principal-user">준일 김 (skjil1218@gmail.com)</div>
+                            <div class="principal-user" th:text="|${principalUser.name} (${principalUser.email})|"></div>
                             <a href="/logout">로그아웃</a>
                         </div>
                     </div>
@@ -41,7 +41,7 @@
                     <select name="">
                         <option value="ko">대한민국</option>
                     </select>
-                    <input type="text" class="principal-name" placeholder="성명">
+                    <input type="text" class="principal-name" th:value="${principalUser.name}" placeholder="성명">
                     <div class="address-zone">
                         <input type="text" class="address-zonecode" placeholder="우편번호">
                         <button type="button" class="black-button address-button">주소찾기</button>
@@ -69,26 +69,26 @@
                 <li class="product-list">
                     <div class="product-info">
                         <div class="product-img">
-                            <img src="/static/images/p1.png">
+                            <img th:src="|/image/product/${order.productImg}|">
                         </div>
                         <div class="product-description">
-                            <h2>BULLDOG RIPPER TEE</h2>
-                            <span>Dark Red / S</span>
+                            <h2 th:text="${order.productName}"></h2>
+                            <span th:text="|${order.productColor} / ${order.productSize}|"></span>
                         </div>
                     </div>
-                    <div class="product-price">62000원</div>
+                    <div class="product-price" th:text="|${order.productPrice}원|"></div>
                 </li>
             </ul>
             <div class="order-info">
                 <div class="order-price">
-                    <h3>총 상품금액</h3><span>62000원</span>
+                    <h3>총 상품금액</h3><span th:text="|${order.productPrice}원|"></span>
                 </div>
                 <div class="order-shipping">
                     <h3>배송비</h3><span>무료배송</span>
                 </div>
             </div>
             <div class="order-total">
-                <h2>총 결제금액</h2><strong>62000원</strong>
+                <h2>총 결제금액</h2><strong th:text="|${order.productPrice}원|"></strong>
             </div>
         </aside>
     </div>

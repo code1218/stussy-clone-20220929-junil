@@ -72,10 +72,12 @@ class ProductDetailService {
         const h_groupId = document.querySelector("#group-id");
         const h_productName = document.querySelector("#product-name");
         const h_productPrice = document.querySelector("#product-price");
+        const h_productImg = document.querySelector("#product-img");
 
         h_groupId.value = responseData.groupId;
         h_productName.value = responseData.name;
         h_productPrice.value = responseData.price;
+        h_productImg.value = responseData.imgNames[0];
 
         productTitle.textContent = responseData.name;
         productPrice.textContent = responseData.price;

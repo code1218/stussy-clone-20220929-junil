@@ -2,39 +2,39 @@ package com.stussy.stussyclone20220929junil.controller.api;
 
 
 import com.stussy.stussyclone20220929junil.dto.CMRespDto;
+import com.stussy.stussyclone20220929junil.util.JwtProvider;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Header;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
 import java.util.Date;
 
 @RestController
 @RequestMapping("/api/auth")
+@RequiredArgsConstructor
 public class JWTApi {
 
-    @PostMapping("/jwt")
-    public ResponseEntity<?> createJwt() {
-        Date now = new Date();
+    private final JwtProvider jwtProvider;
 
-        String jwt = Jwts.builder()
-                .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
-                .setIssuer("junil") //발급자(iss)
-                .setIssuedAt(now) //발급 시간
-                .setExpiration(new Date(now.getTime() + Duration.ofMinutes(30).toMillis())) //만료 시간
-                .claim("username", "junil")
-                .claim("email", "junil@gmail.com")
-                .signWith(SignatureAlgorithm.HS256, "1234")
-                .compact();
+    @PostMapping("/jwt/{username}")
+    public ResponseEntity<?> createJwt(@PathVariable String username) {
 
-        jwt = "Bearer " + jwt;
+        String token = jwtProvider.createToken(username);
+        Claims claims = jwtProvider.parseJwtToken(token);
 
-        return ResponseEntity.ok(new CMRespDto<>(1, "juw created", jwt));
+        return ResponseEntity.ok(new CMRespDto<>(1, "jwt created", token));
+    }
+
+    @GetMapping("/jwt")
+    public ResponseEntity<?> checkToken(@RequestHeader(value = HttpHeaders.AUTHORIZATION) String token) {
+        Claims claims = jwtProvider.parseJwtToken(token);
+        return ResponseEntity.ok(new CMRespDto<>(1, "검증완료", token));
     }
 
 }

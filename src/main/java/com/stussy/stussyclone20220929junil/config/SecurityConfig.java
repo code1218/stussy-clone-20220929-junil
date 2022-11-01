@@ -60,6 +60,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .oauth2Login()
                 .userInfoEndpoint()
+                /*
+                 * 1. google, naver, kakao 로그인 요청 -> 코드를 발급(토큰)
+                 * 2. 발급받은 코드로 에세스토큰을 발급요청 -> 에세스토큰 발급
+                 * 3. 발급받은 에세스토큰으로 스코프에 등록된 프로필 정보를 요청할 수 있게된다.
+                 * 4. 해당 정보를 response또는 Attributes로 전달 받음
+                 */
                 .userService(principalOauth2Service)
                 .and()
                 .defaultSuccessUrl("/index");

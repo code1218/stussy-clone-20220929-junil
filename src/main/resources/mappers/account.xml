@@ -23,7 +23,11 @@
         <collection property="role" resultMap="role"></collection>
     </resultMap>
 
-    <insert id="save" parameterType="com.stussy.stussyclone20220929junil.domain.User">
+    <insert id="save"
+            parameterType="com.stussy.stussyclone20220929junil.domain.User"
+            useGeneratedKeys="true"
+            keyProperty="id"
+    >
         insert into
             user_mst
         values(
@@ -39,6 +43,18 @@
             now()
         )
     </insert>
+
+    <update id="updateUserOauth2" parameterType="com.stussy.stussyclone20220929junil.domain.User">
+        update
+            user_mst
+        set
+            oauth_username = #{oauth_username},
+            provider = #{provider},
+            update_date = now()
+        where
+            id = #{id}
+
+    </update>
 
     <select id="findUserByEmail" parameterType="String" resultMap="user">
         select

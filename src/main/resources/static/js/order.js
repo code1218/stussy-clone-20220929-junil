@@ -58,26 +58,7 @@ class ImportApi {
     responsePay(resp) {
         if(resp.success) {
             alert("결제 성공!");
-            $.ajax({
-                async: false,
-                type: "post",
-                url: "https://api.iamport.kr/users/getToken",
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("Content-Type", "application/json");
-                },
-                data: JSON.stringify({
-                    imp_key: "8825270399377631",
-                    imp_secret: "fc2d4ec544d07189a27525485451bb30e570c62e8707046c20304c4dd3420fd8efacd697ba11ef5f"
-                }),
-                dataType: "json",
-                success: (response) => {
-                    console.log(response);
-                    accessToken = response;
-                },
-                error: (error) => {
-                    console.log(error);
-                }
-            });
+            
         }else {
             alert("결제 실패!");
         }

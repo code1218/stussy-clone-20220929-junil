@@ -1,1 +1,4 @@
-let name = "김준이";
+class Principal {
+    static #instance = null;
+    
+}

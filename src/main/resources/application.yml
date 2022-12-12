@@ -45,4 +45,5 @@ mybatis:
     - /mappers/*.xml
 
 file:
-  path: C:/junil/junil/web/springboot/stussy-clone-20220929-junil/upload/
+  path: /home/ubuntu/springboot/project/upload/
+#  path: C:/junil/junil/web/springboot/stussy-clone-20220929-junil/upload/
